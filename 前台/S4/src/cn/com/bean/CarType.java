@@ -3,7 +3,7 @@ package cn.com.bean;
 import java.io.Serializable;
 /**
  * 车型信息类
- * @author
+ * @author  lej
  */
 public class CarType implements Serializable {
   private int t_id;  //车型编号
