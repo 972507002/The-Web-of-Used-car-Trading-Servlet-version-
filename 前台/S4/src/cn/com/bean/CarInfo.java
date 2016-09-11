@@ -2,30 +2,33 @@ package cn.com.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
-
+/**
+ * 车辆概要信息类
+ * @author le
+ */
 public class CarInfo implements Serializable {
- private long u_id;
- private long c_id;
- private String c_brand;
- private String c_series;
- private int c_releaseyear;
- private double c_volume;
- private String c_gearType;
- private String c_code;
- private String c_model;
- private String c_licencetime;
- private double c_distance;
- private String c_emissionstandard;
- private double c_price;
- private long c_count;
- private String c_img;
- private String c_type;
- private String c_state;
- private long c_sccount;
- private String c_czzx;
- private String c_sjtime;
- private double newprice;
- private String c_mcsj;
+ private long u_id;  //车主编号
+ private long c_id;  //车辆编号
+ private String c_brand;  //品牌
+ private String c_series;  //车系
+ private int c_releaseyear; //
+ private double c_volume; //排量
+ private String c_gearType; //挂档类型
+ private String c_code;      //编号
+ private String c_model;   //型号
+ private String c_licencetime; //上牌时间
+ private double c_distance;    //行驶距离
+ private String c_emissionstandard;  //排放标准
+ private double c_price;  //价格
+ private long c_count;   //热度
+ private String c_img;  //头图片
+ private String c_type; //车体形式
+ private String c_state; //状态
+ private long c_sccount; //收藏量
+ private String c_czzx;  //详情描叙
+ private String c_sjtime; //上架时间
+ private double newprice;  //新车价
+ private String c_mcsj;  //卖出时间
 public String getC_mcsj() {
 	return c_mcsj;
 }
