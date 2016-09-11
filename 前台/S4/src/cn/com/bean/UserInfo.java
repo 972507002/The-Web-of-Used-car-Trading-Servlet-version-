@@ -1,18 +1,22 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ * 
+ * 用户信息类
+ * @author lej
+ */
 public class UserInfo  implements Serializable{
-  private long u_id;
-  private long u_tel;
-  private String u_pwd;
-  private long u_card;
-  private String  u_adr;
-  private long u_qq;
-  private String u_email;
-  private String u_name;
-  private String u_sex;
-  private String u_admin;
+  private long u_id; //用户编号
+  private long u_tel; //用户手机（账号）
+  private String u_pwd; //用户密码
+  private long u_card; //用户身份证
+  private String  u_adr; //用户地址
+  private long u_qq; //用户QQ
+  private String u_email; //用户邮箱
+  private String u_name; //用户姓名
+  private String u_sex; //用户性别
+  private String u_admin; //用户权限
 public String getU_admin() {
 	return u_admin;
 }
