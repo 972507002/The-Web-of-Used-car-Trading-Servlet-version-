@@ -5,7 +5,7 @@ import java.util.Map;
 import cn.com.bean.*;
 /**
  * 汽车基本信息操作接口
- * @author lejd
+ * @author lej
  */
 public interface IBasicInfoDao {
 /**
