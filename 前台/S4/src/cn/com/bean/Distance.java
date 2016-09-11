@@ -1,11 +1,14 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ * 行驶距离类
+ * @author  lej
+ */
 public class Distance implements Serializable {
-    private int d_id;
-    private String d_name;
-    private long d_count;
+    private int d_id;  //行驶距离编号
+    private String d_name; //行驶距离名称
+    private long d_count;  //热度
 	public int getD_id() {
 		return d_id;
 	}
