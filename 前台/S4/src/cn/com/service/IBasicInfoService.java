@@ -14,17 +14,17 @@ public interface IBasicInfoService {
  * @return Map<Long, BasicInfo>
 */
 	public Map<Long, BasicInfo> getAllBasic();
-	/**
+/**
  *根据编号获取汽车基本信息的服务
  *@return BasicInfo
  */
 	public BasicInfo getAllBasicById(CarInfo carInfo);
-	/**
+/**
  * 添加汽车基本信息的服务
  * @return boolean
  */
 	public boolean addBasicInfo(BasicInfo basicInfo);
-	/**
+/**
  * 修改汽车基本信息的服务
  * @return boolean
  */
