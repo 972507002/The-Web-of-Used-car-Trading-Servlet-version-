@@ -9,13 +9,13 @@ import cn.com.bean.*;
 public interface ICarTypeDao {
 	/**
 	 * 按热度获取车型信息的方法
-	 * @Map<Integer,CarType>
+	 * @return Map<Integer,CarType>
 	 */
 	public Map<Integer, CarType> getCarTypeByCount();
 	
 	/**
 	 * 获取所有车型信息的方法
-	 * @Map<Integer,CarType>
+	 * @return  Map<Integer,CarType>
 	 */
 	public Map<Integer, CarType> getAllCarType();
 }
