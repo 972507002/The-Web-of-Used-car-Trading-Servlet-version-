@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 /**
  * 车辆概要信息类
- * @author le
+ * @author lej
  */
 public class CarInfo implements Serializable {
  private long u_id;  //车主编号
