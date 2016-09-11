@@ -11,7 +11,7 @@ public class CarInfo implements Serializable {
  private long c_id;  //车辆编号
  private String c_brand;  //品牌
  private String c_series;  //车系
- private int c_releaseyear; //
+ private int c_releaseyear; //款式年限
  private double c_volume; //排量
  private String c_gearType; //挂档类型
  private String c_code;      //编号
