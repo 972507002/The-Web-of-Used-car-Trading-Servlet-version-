@@ -3,7 +3,7 @@ package cn.com.bean;
 import java.io.Serializable;
 import java.sql.Date;
 /**
- * 汽车基本信息类
+ * 汽车基本信息类x
  * @author le
  *
  */
