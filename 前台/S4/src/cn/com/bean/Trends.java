@@ -1,14 +1,17 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ * 公司动态信息类
+ * @author lej
+ */
 public class Trends implements Serializable {
-   private long tr_id;
-   private String tr_title;
-   private String tr_text;
-   private String tr_date;
-   private String tr_img;
-   private String tr_type;
+   private long tr_id;  //动态信息编号
+   private String tr_title;  //动态信息标题
+   private String tr_text;  //动态信息正文
+   private String tr_date;  //动态信息日期
+   private String tr_img;  //动态信息配图
+   private String tr_type; //动态信息类型
 public String getTr_type() {
 	return tr_type;
 }
