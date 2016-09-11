@@ -3,7 +3,7 @@ package cn.com.bean;
 import java.io.Serializable;
 /**
  *品牌信息类 
- * @author
+ * @author lej
  */
  
 public class CarBrand implements Serializable {
