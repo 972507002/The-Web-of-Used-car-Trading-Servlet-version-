@@ -3,7 +3,7 @@ package cn.com.bean;
 import java.io.Serializable;
 /**
  * 车龄信息类
- * @author le
+ * @author lej
  */
 public class CarAge implements Serializable{
  private int a_id;   //车龄编号
