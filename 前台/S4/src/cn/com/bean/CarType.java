@@ -1,13 +1,16 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ * 车型信息类
+ * @author
+ */
 public class CarType implements Serializable {
-  private int t_id;
-  private String t_name;
-  private String t_img;
-  private long t_count;
-  private String t_class;
+  private int t_id;  //车型编号
+  private String t_name; //车型名称
+  private String t_img;   //车型logo
+  private long t_count;  //热度
+  private String t_class;  //车型logo
 public String getT_class() {
 	return t_class;
 }
