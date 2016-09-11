@@ -4,23 +4,38 @@ import java.util.Map;
 
 import cn.com.bean.CarInfo;
 import cn.com.bean.SellInfo;
-
+/**
+  * 
+  * é”€å”®ä¿¡æ¯æœåŠ¡æ¥å£
+  * @author lej
+  */
 public interface ISellInfoService {
-	/**
-	 * »ñÈ¡ËùÓĞÏúÊÛĞÅÏ¢ÒµÎñ
+        /**
+	 * è·å–æ‰€æœ‰é”€å”®ä¿¡æ¯
+	 * @return   Map<Long, SellInfo>
 	 */
 	public Map<Long, SellInfo> getAllSellInfo();
-	/**
-	 * ¸ù¾İ³µ±àºÅ»ñÈ¡ÏúÊÛÇé¿öÒµÎñ
-	 */
+/**
+ * æ ¹æ®è½¦ç¼–å·è·å–é”€å”®ä¿¡æ¯
+ * @return SellInfo
+ */
 	public SellInfo getSellInfoById(CarInfo carInfo);
-	/**
-	 * Ôö¼ÓÏúÊÛÇé¿öÒµÎñ
-	 */
+/**
+ * å¢åŠ é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return boolean
+ */
 	public boolean addSellInfo(SellInfo sellInfo);
-	/**
-	 * É¾³ıÏúÊÛÇé¿öÒµÎñ
-	 */
+/**
+ * åˆ é™¤é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
+ */
 	public int deleteSellInfo(SellInfo sellInfo);
+/**
+ * ä¿®æ”¹é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return boolean
+ */
 	public boolean updateSellInfo(SellInfo sellInfo);
 }
