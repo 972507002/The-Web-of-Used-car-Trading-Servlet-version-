@@ -2,7 +2,11 @@ package cn.com.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
-
+/**
+ * 汽车基本信息类
+ * @author le
+ *
+ */
 public class BasicInfo implements Serializable {
  private long u_id;
  private long c_id;
