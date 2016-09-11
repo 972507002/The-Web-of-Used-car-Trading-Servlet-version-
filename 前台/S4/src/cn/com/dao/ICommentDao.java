@@ -29,8 +29,8 @@ public interface ICommentDao {
           /**
            * 获取两条最新的评论的方法
            * @parma comment
-           * @parma min
-           * @parma max
+           * @parma min 最小行
+           * @parma max 最大行
            * @return Map<Long,Comment>
            * /
           public Map<Long, Comment> getTheTowComment(Comment  comment,int min,int max);
