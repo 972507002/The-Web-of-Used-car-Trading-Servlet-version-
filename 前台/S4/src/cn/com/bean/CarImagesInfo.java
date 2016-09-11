@@ -3,7 +3,7 @@ package cn.com.bean;
 import java.io.Serializable;
 /**
  *车辆照片信息类 
- * @author le
+ * @author lej
  */
  
 public class CarImagesInfo implements Serializable {
