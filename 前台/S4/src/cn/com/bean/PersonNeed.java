@@ -1,18 +1,21 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ * 个人需求信息类
+ *@author lej
+ */
 public class PersonNeed  implements Serializable{
- private long p_id;
- private long u_id;
- private String p_brand;
- private String p_series;
- private String p_age;
- private String p_price;
- private String p_time;
- private String p_miaoshu;
- private String p_state;
- private String p_tjtime;
+ private long p_id; //需求编号
+ private long u_id;  //用户编号
+ private String p_brand;  //需求品牌
+ private String p_series; //需求车系
+ private String p_age; //需求车龄
+ private String p_price; //需求价格
+ private String p_time; //需求购车时间
+ private String p_miaoshu; //需求描叙
+ private String p_state; //需求状态
+ private String p_tjtime; //需求提交时间
 public String getP_tjtime() {
 	return p_tjtime;
 }
