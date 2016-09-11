@@ -39,7 +39,7 @@ public interface ICarInfoService {
  * @return   Map<Long, CarInfo>
  */
 	public Map<Long, CarInfo>  getCarInfoByTypeCountDesc(CarInfo carInfo);
-	  /**
+/**
  * 按品牌获取汽车概要信息的方法
  * @parma carInfo
  * @return   Map<Long, CarInfo>
