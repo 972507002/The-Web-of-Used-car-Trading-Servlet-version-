@@ -4,7 +4,7 @@ import cn.com.bean.*;
 /**
  * 汽车概要信息操作接口
  * @author lej
- * /
+ */
 public interface ICarInfoDao {
 /**
  * 按热度获取汽车概要信息的方法
