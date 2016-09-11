@@ -1,13 +1,17 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ *品牌信息类 
+ * @author
+ */
+ 
 public class CarBrand implements Serializable {
- private int b_id;
- private String b_name;
- private long b_count;
- private String b_img;
- private String b_szm;
+ private int b_id;  //品牌编号
+ private String b_name;  //品牌名称
+ private long b_count;  //热度
+ private String b_img;  //品牌LOGO
+ private String b_szm; //品牌首字母
 public String getB_szm() {
 	return b_szm;
 }
