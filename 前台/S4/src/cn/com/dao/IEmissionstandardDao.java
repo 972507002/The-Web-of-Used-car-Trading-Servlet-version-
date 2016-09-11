@@ -6,7 +6,7 @@ import cn.com.bean.*;
 /**
  * 
  * 排放标准操作接口
- *@author 
+ *@author
  */
 public interface IEmissionstandardDao {
 	/**
