@@ -1,18 +1,21 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ * 手续信息类
+ * @author  lej
+ */
 public class ProcedureInfo  implements Serializable{
- private long u_id;
- private long c_id;
- private String purchaseTax;
- private String drivingLicense;
- private String ncw;
- private String registration;
- private String newInvoice;
- private int key;
- private int transferTimes;
- private String transferTicket;
+ private long u_id; //车主编号
+ private long c_id; //车辆编号
+ private String purchaseTax;  //购置税
+ private String drivingLicense;  //行驶证
+ private String ncw; //新车质保
+ private String registration; //登记证
+ private String newInvoice;  //新车发票
+ private int key;  //钥匙
+ private int transferTimes;  //过户次数
+ private String transferTicket;  //过户票
 public long getU_id() {
 	return u_id;
 }
