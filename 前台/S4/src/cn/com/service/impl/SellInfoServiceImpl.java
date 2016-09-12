@@ -7,29 +7,38 @@ import cn.com.bean.SellInfo;
 import cn.com.dao.ISellInfoDao;
 import cn.com.dao.impl.SellInfoDaoImpl;
 import cn.com.service.ISellInfoService;
-
+/**
+  * 
+  * é”€å”®ä¿¡æ¯æœåŠ¡å®ç°ç±»
+  * @author lej
+  */
 public class SellInfoServiceImpl implements ISellInfoService{
+	//é”€å”®ä¿¡æ¯æ“ä½œæ¥å£çš„å¼•ç”¨
 private ISellInfoDao sellInfoDao=new SellInfoDaoImpl();
-	@Override
-	/**
-	 * »ñÈ¡ËùÓĞÏúÊÛĞÅÏ¢ÒµÎñ
+        /**
+	 * è·å–æ‰€æœ‰é”€å”®ä¿¡æ¯
+	 * @return   Map<Long, SellInfo>
 	 */
+	@Override
+
 	public Map<Long, SellInfo> getAllSellInfo() {
 		// TODO Auto-generated method stub
 		return sellInfoDao.getAllSellInfo();
 	}
-
+/**
+ * æ ¹æ®è½¦ç¼–å·è·å–é”€å”®ä¿¡æ¯
+ * @return SellInfo
+ */
 	@Override
-	/**
-	 * ¸ù¾İ³µ±àºÅ»ñÈ¡ÏúÊÛÇé¿öÒµÎñ
-	 */
 	public SellInfo getSellInfoById(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		return sellInfoDao.getSellInfoById(carInfo);
 	}
-	/**
-	 * Ôö¼ÓÏúÊÛÇé¿öÒµÎñ
-	 */
+/**
+ * å¢åŠ é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return boolean
+ */
 	@Override
 	public boolean addSellInfo(SellInfo sellInfo) {
 		// TODO Auto-generated method stub
@@ -39,15 +48,21 @@ private ISellInfoDao sellInfoDao=new SellInfoDaoImpl();
 		}
 		return flag;
 	}
-	/**
-	 * É¾³ıÏúÊÛÇé¿öÒµÎñ
-	 */
+/**
+ * åˆ é™¤é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
+ */
 	@Override
 	public int deleteSellInfo(SellInfo sellInfo) {
 		// TODO Auto-generated method stub
 		return sellInfoDao.deleteSellInfo(sellInfo);
 	}
-
+/**
+ * ä¿®æ”¹é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return boolean
+ */
 	@Override
 	public boolean updateSellInfo(SellInfo sellInfo) {
 		// TODO Auto-generated method stub
