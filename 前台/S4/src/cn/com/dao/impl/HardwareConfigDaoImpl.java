@@ -30,21 +30,7 @@ public class HardwareConfigDaoImpl implements IHardwareConfig {
 		ResultSet res = DbUtil.executeQuery(sql, null);
 		try {
 			while (res.next()) {
-				// private long u_id;
-				// private long c_id;
-				// private String consoleLceScreen;
-				// private String autoLight;
-				// private String headLights;
-				// private String lightWash;
-				// private String efgv;
-				// private int seatNumber;
-				// private String fuelForm;
-				// private String cvt;
-				// private String drivingMethod;
-				// private String pke;
-				// private String keyLessgo;
-				// private String sunRoof;
-				// private String leatherSeat;
+			
 				HardwareConfig hardwareConfig = new HardwareConfig();
 				hardwareConfig.setU_id(res.getLong("u_id"));
 				hardwareConfig.setC_id(res.getLong("c_id"));
