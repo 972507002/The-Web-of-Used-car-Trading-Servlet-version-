@@ -8,22 +8,21 @@ import cn.com.util.*;
 import cn.com.bean.*;
 import cn.com.dao.*;
 
-
+/**
+ * 个人需求信息操作实现类
+ *@author 
+ */
 public class PersonNeedDaoImpl implements IPersonNeedDao,IPageDao{
-
-//	 private long p_id;
-//	 private long u_id;
-//	 private String p_brand;
-//	 private String p_series;
-//	 private String p_age;
-//	 private String p_price;
-//	 private String p_time;
-//	 private String p_miaoshu;
+  /**
+   * 
+   * 添加个人需求信息的方法
+   *@return int 
+   */
 	public int addPersonNeed(PersonNeed personNeed) {
 		// TODO Auto-generated method stub
 		List<Object> params=new ArrayList<Object>();
 		String sql="insert into personneed values(seq_personneed.nextval,?,?,?,?,?,to_date(?,'yyyy-mm'),?,?,to_date(?,'yyyy-mm-dd HH24:mi:ss'))";
-		
+		//绑定参数
 		params.add(personNeed.getU_id());
 		params.add(personNeed.getP_brand());
 		params.add(personNeed.getP_series());
@@ -36,11 +35,16 @@ public class PersonNeedDaoImpl implements IPersonNeedDao,IPageDao{
 		int count=DbUtil.executeUpdate(sql, params);
 		return count;
 	}
-
+  /**
+   * 
+   * 删除个人需求信息的方法
+   *@return int 
+   */
 	public int deletePersonNeed(PersonNeed personNeed) {
 		// TODO Auto-generated method stub
 		List<Object> params=new ArrayList<Object>();
 		StringBuffer sql=new StringBuffer("delete from personneed where 1=1");
+		//动态绑定参数和SQL语句延伸
 		if(personNeed.getP_id()!=0){
 			sql.append(" and p_id=?");
 			params.add(personNeed.getP_id());
@@ -52,13 +56,18 @@ public class PersonNeedDaoImpl implements IPersonNeedDao,IPageDao{
 		int count=DbUtil.executeUpdate(sql.toString(), params);
 		return count;
 	}
-
+ /**
+   * 
+   * 获取个人需求信息的方法
+   *@return PersonNeed
+   */
 	@Override
 	public PersonNeed getPerSonNeed(PersonNeed personNeed) {
 		// TODO Auto-generated method stub
 		 PersonNeed _PersonNeed=null;
 		StringBuffer sql=new StringBuffer("select * from personneed where 1=1 ");
 		List<Object> parmas=new ArrayList<Object>();
+			//动态绑定参数和SQL语句延伸
 		if(personNeed.getU_id()!=0){
 			sql.append(" and u_id=? ");
 			parmas.add(personNeed.getU_id());
@@ -91,6 +100,7 @@ if(personNeed.getP_state()!=null){
 	sql.append(" and p_state=? ");
 	parmas.add(personNeed.getP_state());
 }
+   //获取结果集
        ResultSet res=  DbUtil.executeQuery(sql.toString(), parmas);
 		try {
 			while(res.next()){
@@ -127,7 +137,11 @@ if(personNeed.getP_state()!=null){
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+        /**
+         * 获取个人需求记录总条数
+         * 
+         * @return int
+         */
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -135,10 +149,12 @@ if(personNeed.getP_state()!=null){
 		 PersonNeed personNeed=(PersonNeed) object;
 		StringBuffer sql=new StringBuffer("select count(*) from personneed where 1=1");
 		List<Object> parmas=new ArrayList<Object>();
+		//动态绑定参数和延伸SQL语句
 		if(personNeed.getU_id()!=0){
 			sql.append(" and u_id=?");
 			parmas.add(personNeed.getU_id());
 		}
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), parmas);
 	try {
 		while(res.next()){
@@ -150,7 +166,12 @@ if(personNeed.getP_state()!=null){
 	}
 		return count;
 	}
-
+      /**
+       * 分页获取个人需求信息
+       * @param curPage 当前页
+       * @param rowsPrePage 每页显示记录条数
+       * @return Map<Long,Object>
+       */
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -159,12 +180,14 @@ if(personNeed.getP_state()!=null){
 		 StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from(select  to_char(p_tjtime,'yyyy-mm-dd') y, to_char(p_time,'yyyy-mm') n, a.* from personneed  a  where 1=1");
 		 Map<Long, Object> personNeedMap=new HashMap<Long, Object>();
 			List<Object> params=new ArrayList<Object>();
+			//动态绑定参数和延伸SQL语句
 			if(personNeed.getU_id()!=0){
 				sql.append(" and u_id=?");
 				params.add(personNeed.getU_id());
 			}
 			
 			sql.append(" order by p_tjtime desc ) b  where rownum<=("+curPage+")*("+rowsPrePage+")) where rn>(("+curPage+")-1)*("+rowsPrePage+")");
+			//获取结果集
 			ResultSet res=	 DbUtil.executeQuery(sql.toString(), params);
 			
 		    try {
