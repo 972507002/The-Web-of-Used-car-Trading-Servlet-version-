@@ -4,6 +4,10 @@ import cn.com.util.*;
 import cn.com.dao.*;
 import java.util.*;
 import java.sql.*;
+/**
+ * 车龄信息操作实现类
+ *@author  lej 
+ */
 public class CarAgeDaoImpl implements ICarAgeDao{
   
 	@Override
