@@ -1,5 +1,8 @@
 package cn.com.util;
-
+/**
+ * 车龄工具类
+ * @author lej
+ */
 public class CarAgeUtil {
    private int minAge=0;//最小车龄
    private int maxAge=0; //最大车龄
