@@ -1,21 +1,21 @@
 package cn.com.util;
 
 /**
- * ·ÖÒ³¹¤¾ßÀà
+ * åˆ†é¡µå·¥å…·ç±»
  * 
  * @author Administrator
  * 
  */
 public class PageUtil {
-	private int curPage;// µ±Ç°Ò³Âë
-	private int rowsPrePage;// Ã¿Ò³¼ÇÂ¼ÌõÊı
-	private int maxPage;// ×Ü¹²ÓĞ¶àÉÙÒ³
-	private int maxRowsCount;// ×Ü¹²ÓĞ¶àÉÙÌõÊı¾İ
+	private int curPage;// å½“å‰é¡µç 
+	private int rowsPrePage;// æ¯é¡µè®°å½•æ¡æ•°
+	private int maxPage;// æ€»å…±æœ‰å¤šå°‘é¡µ
+	private int maxRowsCount;// æ€»å…±æœ‰å¤šå°‘æ¡æ•°æ®
 
 	/**
-	 * ¹¹Ôì·½·¨
-	 * @param rowsPrePage Ã¿Ò³¼ÇÂ¼ÌõÊı
-	 * @param maxRowsCount ×Ü¹²ÓĞ¶àÉÙÌõÊı¾İ
+	 * æ„é€ æ–¹æ³•
+	 * @param rowsPrePage æ¯é¡µè®°å½•æ¡æ•°
+	 * @param maxRowsCount æ€»å…±æœ‰å¤šå°‘æ¡æ•°æ®
 	 */
 	public PageUtil(int rowsPrePage, int maxRowsCount) {
 
@@ -28,7 +28,7 @@ public class PageUtil {
 
 	}
 
-	// ¼ÆËã×ÜÒ³Âë
+	// è®¡ç®—æ€»é¡µç 
 	public void maxPage() {
 
 		if (maxRowsCount % rowsPrePage == 0) {
@@ -38,7 +38,7 @@ public class PageUtil {
 			maxPage = maxRowsCount / rowsPrePage + 1;
 		}
 	}
-
+ 
 	public int getCurPage() {
 		return curPage;
 	}
