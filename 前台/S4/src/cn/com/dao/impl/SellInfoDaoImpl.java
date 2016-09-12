@@ -11,21 +11,22 @@ import cn.com.bean.CarInfo;
 import cn.com.bean.SellInfo;
 import cn.com.dao.ISellInfoDao;
 import cn.com.util.DbUtil;
-
+ /**
+  * 
+  * é”€å”®ä¿¡æ¯æ“ä½œå®ç°ç±»
+  * @author lej
+  */
 public class SellInfoDaoImpl implements ISellInfoDao{
-/**
- * »ñÈ¡ËùÓĞÏúÊÛĞÅÏ¢
- */
-//	private long u_id;
-//	 private long c_id;
-//	 private String priceType;
-//	 private String transferFee;
-//	 private String stage;
+        /**
+	 * è·å–æ‰€æœ‰é”€å”®ä¿¡æ¯
+	 * @return   Map<Long, SellInfo>
+	 */
 	@Override
 	public Map<Long, SellInfo> getAllSellInfo() {
 		// TODO Auto-generated method stub
 		String sql="select * from sellinfo";
 		Map<Long, SellInfo> sellInfoMap=new HashMap<Long, SellInfo>();
+		//è·å–ç»“æœé›†
 		ResultSet res=DbUtil.executeQuery(sql, null);
 		try {
 			while(res.next()){
@@ -44,16 +45,19 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 		return sellInfoMap;
 	}
 /**
- * ¸ù¾İ³µ±àºÅ»ñÈ¡ÏúÊÛÇé¿ö
+ * æ ¹æ®è½¦ç¼–å·è·å–é”€å”®ä¿¡æ¯
+ * @return SellInfo
  */
 	@Override
 	public SellInfo getSellInfoById(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		SellInfo sellInfo2=null;
 		String sql="select * from sellInfo where u_id=? and c_id=?";
+		//ç»‘å®šå‚æ•°
 		List<Object> params=new ArrayList<Object>();
 		params.add( carInfo.getU_id());
 		params.add(carInfo.getC_id());
+		//è·å–ç»“æœé›†
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next()){
@@ -71,12 +75,15 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 		return sellInfo2;
 	}
 /**
- * Ôö¼ÓÏúÊÛÇé¿ö
+ * å¢åŠ é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
  */
 	@Override
 	public int addSellInfo(SellInfo sellInfo) {
 		// TODO Auto-generated method stub
 		String sql="insert into sellinfo values(?,?,?,?,?)";
+		//ç»‘å®šå‚æ•°
 		List<Object> params=new ArrayList<Object>();
 		params.add( sellInfo.getU_id());
 		params.add( sellInfo.getC_id());
@@ -87,12 +94,15 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 		return DbUtil.executeUpdate(sql, params);
 	}
 /**
- * É¾³ıÏúÊÛÇé¿ö
+ * åˆ é™¤é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
  */
 	@Override
 	public int deleteSellInfo(SellInfo sellInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("delete * from sellinfo where 1=1");
+		//åŠ¨æ€ç»‘å®šå‚æ•°å’Œå»¶ä¼¸sqlè¯­å¥
 		List<Object> params=new ArrayList<Object>();
 		if(sellInfo.getU_id()!=0){
 			sql.append(" and u_id=?");
@@ -105,11 +115,17 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 		int count=DbUtil.executeUpdate(sql.toString(), params);
 		return count;
 	}
+/**
+ * ä¿®æ”¹é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
+ */
 @Override
 public int updateSellInfo(SellInfo sellInfo) {
 	// TODO Auto-generated method stub
 	List<Object> params=new ArrayList<Object>();
 	StringBuffer sql=new StringBuffer("update  sellinfo set priceType=?,transferFee=?,stage=? where u_id=? and c_id=?");
+	//ç»‘å®šå‚æ•°
 	params.add(sellInfo.getPriceType());
 	params.add(sellInfo.getTransferFee());
 	params.add(sellInfo.getStage());
