@@ -5,9 +5,15 @@ import java.util.*;
 import cn.com.bean.*;
 import cn.com.dao.*;
 import cn.com.util.*;
-
+/**
+ * 汽车基本信息操作实现类
+ * @author lej
+ */
 public class BasicInfoDaoImpl implements IBasicInfoDao{
-
+/**
+ * 获取所有基本信息的方法
+ * @return Map<Long, BasicInfo>
+*/
 	@Override
 	public Map<Long, BasicInfo> getAllBasic() {
 		// TODO Auto-generated method stub
@@ -35,7 +41,10 @@ public class BasicInfoDaoImpl implements IBasicInfoDao{
 		}
 		return mapBasicInfo;
 	}
-
+/**
+ *根据编号获取汽车基本信息的方法 
+ *@return BasicInfo
+ */
 	@Override
 	public BasicInfo getAllBasicById(CarInfo carInfo) {
 		// TODO Auto-generated method stub
@@ -65,7 +74,10 @@ public class BasicInfoDaoImpl implements IBasicInfoDao{
 		}
 		return basicInfo2;
 	}
-
+/**
+ * 添加汽车基本信息的方法
+ * @return int
+ */
 	@Override
 	public int addBasicInfo(BasicInfo basicInfo) {
 		// TODO Auto-generated method stub
@@ -83,7 +95,10 @@ public class BasicInfoDaoImpl implements IBasicInfoDao{
 		int count=DbUtil.executeUpdate(sql, params);
 		return count;
 	}
-
+/**
+ * 修改汽车基本信息的方法
+ * @return int
+ */
 	@Override
 	public int updateBasicInfo(BasicInfo basicInfo) {
 		// TODO Auto-generated method stub
