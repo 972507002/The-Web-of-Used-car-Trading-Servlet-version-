@@ -11,24 +11,23 @@ import cn.com.bean.CarInfo;
 import cn.com.bean.ProcedureInfo;
 import cn.com.dao.IProcedureInfoDao;
 import cn.com.util.DbUtil;
-
+/**
+ * 手续信息操作实现类
+ * @author lej
+ */
 public class ProcedureInfoDaoImpl implements IProcedureInfoDao{
-
+ /**
+   * 
+   * 获取所有手续信息的方法
+   *@return Map<Long,ProcedureInfo> 
+   */
 	@Override
 	public Map<Long, ProcedureInfo> getAllProcedureInfo() {
 		// TODO Auto-generated method stub
-//		private long u_id;
-//		 private long c_id;
-//		 private String purchaseTax;
-//		 private String drivingLicense;
-//		 private String ncw;
-//		 private String registration;
-//		 private String newInvoice;
-//		 private int key;
-//		 private int transferTimes;
-//		 private String transferTicket;
+
 		String sql="select * from procedureinfo";
 		Map<Long, ProcedureInfo> procedureInfoMap=new HashMap<Long, ProcedureInfo>();
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, null);
 		try {
 			while(res.next()){
@@ -51,15 +50,21 @@ public class ProcedureInfoDaoImpl implements IProcedureInfoDao{
 		}
 		return procedureInfoMap;
 	}
-
+  /**
+   * 
+   * 根据编号获取手续信息的方法
+   *@return ProcedureInfo
+   */
 	@Override
 	public ProcedureInfo getProcedureInfoById(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		ProcedureInfo procedureInfo2=null;
 		String sql="select * from procedureinfo where u_id=? and c_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(carInfo.getU_id());
 		params.add(carInfo.getC_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next()){
@@ -81,11 +86,16 @@ public class ProcedureInfoDaoImpl implements IProcedureInfoDao{
 		}
 		return procedureInfo2;
 	}
-
+  /**
+   * 
+   * 添加手续信息的方法
+   *@return int
+   */
 	@Override
 	public int addProcedureInfo(ProcedureInfo procedureInfo) {
 		// TODO Auto-generated method stub
 		String sql="insert into procedureinfo values(?,?,?,?,?,?,?,?,?,?)";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(procedureInfo.getU_id());
 		params.add(procedureInfo.getC_id());
@@ -100,12 +110,17 @@ public class ProcedureInfoDaoImpl implements IProcedureInfoDao{
 		
 		return DbUtil.executeUpdate(sql, params);
 	}
-
+  /**
+   * 
+   * 删除手续信息的方法
+   *@return  int
+   */
 	@Override
 	public int updateProcedureInfo(ProcedureInfo procedureInfo) {
 		// TODO Auto-generated method stub
 		List<Object> params=new ArrayList<Object>();
 		StringBuffer sql=new StringBuffer("update  procedureinfo set purchaseTax=?,drivingLicense=?,ncw=?,registration=?,newInvoice=?,key=?,transferTimes=?,transferTicket=? where u_id=? and c_id=? ");
+		//绑定参数
 		params.add(procedureInfo.getPurchaseTax());
 		params.add(procedureInfo.getDrivingLicense());
 		params.add(procedureInfo.getNcw());
