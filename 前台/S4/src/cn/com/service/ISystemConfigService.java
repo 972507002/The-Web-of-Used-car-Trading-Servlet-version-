@@ -29,7 +29,7 @@ public interface ISystemConfigService {
  */
 	public boolean addSystemConfig(SystemConfig systemConfig);
 /**
- * 删除汽车系统配置信息的方法
+ * 修改汽车系统配置信息的方法
  *  @param systemConfig
  * @return boolean 
  */
