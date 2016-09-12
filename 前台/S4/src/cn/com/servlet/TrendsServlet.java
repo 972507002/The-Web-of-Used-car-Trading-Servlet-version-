@@ -18,23 +18,29 @@ import cn.com.service.impl.CommentServiceImpl;
 import cn.com.service.impl.TrendsServiceImpl;
 import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
-
+/**
+ * 公司动态消息引擎
+ * @author lej
+ */
 public class TrendsServlet  extends HttpServlet{
+	//公司动态消息服务的引用
      TrendsServiceImpl trendsServiceImpl=new TrendsServiceImpl();
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session=req.getSession();
-		req.setCharacterEncoding("utf-8");
-		resp.setCharacterEncoding("utf-8");
-	String op=req.getParameter("op");
+		req.setCharacterEncoding("utf-8");//请求编码设置
+		resp.setCharacterEncoding("utf-8");//响应编码设置
+	String op=req.getParameter("op");//操作符
+	//展示新闻列表操作
 	if(op.equals("shownewslist")){
 		Trends trends=new Trends();
-		trends.setTr_type("����");
+		trends.setTr_type("新闻");
 		fenye(req, resp, trends);
 		req.getRequestDispatcher("news_list.jsp").forward(req, resp);
 	}
+	//展示新闻详情操作
 	if(op.equals("showtei")){
 	String tr_id=	req.getParameter("tr_id");
 	Trends trends=new Trends();
@@ -43,12 +49,14 @@ public class TrendsServlet  extends HttpServlet{
     req.setAttribute("_trends", _Trends);
     req.getRequestDispatcher("news_show.jsp").forward(req, resp);
 	}
+	//展示活动列表操作
 	if(op.equals("showactive")){
 		Trends trends=new Trends();
-		trends.setTr_type("�");
+		trends.setTr_type("活动");
 		fenye(req, resp, trends);
 		req.getRequestDispatcher("active_list.jsp").forward(req, resp);
 	}
+	//展示活动详细操作
 	if(op.equals("showteia")){
 		String tr_id=	req.getParameter("tr_id");
 		Trends trends=new Trends();
@@ -57,11 +65,13 @@ public class TrendsServlet  extends HttpServlet{
 	    req.setAttribute("_trends", _Trends);
 	    req.getRequestDispatcher("active_show.jsp").forward(req, resp);
 		}
+		//展示评论列表操作
 	if(op.equals("showcom")){
 		Comment comment=new Comment();
 		fenyec(req, resp, comment);
 		req.getRequestDispatcher("comment_list.jsp").forward(req, resp);
 	}
+	//展示评论详情
 	if(op.equals("showcomd")){
 		String tr_id=	req.getParameter("cid");
 		Comment comment=new Comment();
@@ -73,6 +83,11 @@ public class TrendsServlet  extends HttpServlet{
 	}
 	
 	}
+	/**
+	 * 分页处理公司动态消息的方法
+	 * 
+	 * 
+	 */
 private void fenye(HttpServletRequest req, HttpServletResponse resp,Trends trends){
 		
 		
@@ -85,9 +100,9 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,Trends trend
 		
    
 	 int maxRowsCount=trendsServiceImpl.queryPersonCarCount(trends);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(2, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -120,6 +135,10 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,Trends trend
 		
 		
 	 }
+	 /**
+	  * 分页处理评论信息的方法
+	  * 
+	  */
 private void fenyec(HttpServletRequest req, HttpServletResponse resp,Comment comment){
 	CommentServiceImpl commentServiceImpl=new CommentServiceImpl();
 	
@@ -132,9 +151,9 @@ private void fenyec(HttpServletRequest req, HttpServletResponse resp,Comment com
 	
 
  int maxRowsCount=commentServiceImpl.queryPersonCarCount(comment);
-	//������ҳ�߼�<=>����
+	//处理分页逻辑<=>调用
 	PageUtil pageUtil=new PageUtil(2, maxRowsCount);
-	// ����ҳ���߼�
+	// 处理页码逻辑
 	if (curPage <= 1) {
 
 		pageUtil.setCurPage(1);
