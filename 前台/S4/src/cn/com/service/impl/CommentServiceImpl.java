@@ -81,9 +81,7 @@ public class CommentServiceImpl implements ICommentService,IPageDao {
 	}
       /**
       *获取评论的总记录条数 
-      * @param curPage当前页
-      * @param rowsPrePage
-      * @return List<Object>
+      * @return int
       */
 	@Override
 	public int queryPersonCarCount(Object object) {
