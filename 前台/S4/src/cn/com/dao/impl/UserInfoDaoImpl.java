@@ -5,8 +5,15 @@ import java.util.*;
 import cn.com.bean.*;
 import cn.com.dao.*;
 import cn.com.util.*;
+/**
+ * 用户信息操作实现类
+ * @author
+ */
 public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
-
+  /**
+   * 登录的方法
+   * @return UserInfo
+   */
 	@Override
 	public UserInfo login(UserInfo userInfo) {
 		// TODO Auto-generated method stub
@@ -39,7 +46,10 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 	}
 		return _userInfo;
 	}
-
+  /**
+   * 按唯一条件获取用户信息的方法
+   *@return UserInfo 
+   */
 	@Override
 	public UserInfo getUserInfoByUnique(UserInfo userInfo) {
 		// TODO Auto-generated method stub
@@ -75,7 +85,10 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 	}
 		return _userInfo;
 	}
-
+/**
+   * 添加用户信息的方法
+   *@return int 
+   */
 	@Override
 	public int addUserInfo(UserInfo userInfo) {
 		// TODO Auto-generated method stub
@@ -89,7 +102,10 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		
 		return DbUtil.executeUpdate(sql.toString(), parmas);
 	}
-
+ /**
+   * 修改用户信息的方法
+   *@return int 
+   */
 	@Override
 	public int updateUserInfo(UserInfo userInfo) {
 		// TODO Auto-generated method stub
@@ -126,7 +142,10 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		
 		return DbUtil.executeUpdate(sql.toString(), params);
 	}
-
+  /**
+   * 修改用户密码的方法
+   *@return int 
+   */
 	@Override
 	public int updateUserPwd(UserInfo userInfo) {
 		// TODO Auto-generated method stub
@@ -151,7 +170,11 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+    /**
+     * 获取用户记录条数
+     * 
+     * @return int
+     */
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -174,7 +197,13 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 	}
 		return count;
 	}
-
+/**
+ * 分页获取用户信息
+ * @param curPage 当前页
+ * @param rowsPrePage 每页显示记录条数
+ * 
+ * @return Map<Long,Object>
+ */
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -182,6 +211,7 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		UserInfo userInfo=(UserInfo) object;
 		 StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from(select  a.* from userinfo3  a  where 1=1");
 		 Map<Long, Object> userMap=new HashMap<Long, Object>();
+		 //动态绑定参数和延伸SQL语句
 			List<Object> params=new ArrayList<Object>();
 
 			if(userInfo.getU_admin()!=null){
@@ -189,7 +219,8 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 				params.add(userInfo.getU_admin());
 			}
 			sql.append("  ) b  where rownum<=("+curPage+")*("+rowsPrePage+")) where rn>(("+curPage+")-1)*("+rowsPrePage+")");
-			ResultSet res=	 DbUtil.executeQuery(sql.toString(), params);
+		      //获取结果集
+		      	ResultSet res=	 DbUtil.executeQuery(sql.toString(), params);
 			
 		    try {
 				while(res.next()){
