@@ -29,7 +29,7 @@ public interface IProcedureInfoService {
 	public boolean addProcedureInfo(ProcedureInfo procedureInfo);
  /**
    * 
-   * 删除手续信息的服务
+   * 修改手续信息的服务
    *@return  boolean
    */
 	public boolean updateProcedureInfo(ProcedureInfo procedureInfo);
