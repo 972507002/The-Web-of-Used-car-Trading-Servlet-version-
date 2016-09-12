@@ -9,7 +9,7 @@ import cn.com.bean.SystemConfig;
  * 
  * 汽车系统配置信息服务接口
  * @author lej
- * /
+ */
 public interface ISystemConfigService {
 	/**
 	 * 获取所有系统信息
