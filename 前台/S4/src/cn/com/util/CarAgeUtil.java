@@ -15,17 +15,17 @@ public int getMaxAge() {
 public void setMaxAge(int maxAge) {
 	this.maxAge = maxAge;
 }
-public CarAgeUtil(String age){
-	if(age.contains("ÒÔÄÚ")){
-		String [] s=age.split("Äê");
+public CarAgeUtil(String age){å‘
+	if(age.contains("Ã’Ã”Ã„Ãš")){
+		String [] s=age.split("Ã„Ãª");
 		this.maxAge=Integer.parseInt(s[0]);
 		}
-		if(age.contains("ÒÔÉÏ")){
-			String [] s=age.split("Äê");
+		if(age.contains("Ã’Ã”Ã‰Ã")){
+			String [] s=age.split("Ã„Ãª");
 			this.minAge=Integer.parseInt(s[0]);
 		}
 		if(age.contains("-")){
-			String [] s=age.split("Äê");
+			String [] s=age.split("Ã„Ãª");
 			String [] s1 =   s[0].split("-");
 			this.maxAge=Integer.parseInt(s1[1]);
 			this.minAge=Integer.parseInt(s1[0]);
