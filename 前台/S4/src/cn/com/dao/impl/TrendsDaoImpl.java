@@ -4,16 +4,26 @@ import cn.com.util.*;
 import cn.com.dao.*;
 import java.util.*;
 import java.sql.*;
+/**
+ * 公司动态消息操作实现类
+ * @author
+ */
 public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
-
+       /**
+        * 获取指定条数的最新的动态消息集合
+        * @param  rows 获取记录的条数
+        * @return List<Trends> 
+        */
 	@Override
 	public List<Trends> getITrendsByTime(Trends trends,int rows) {
 		// TODO Auto-generated method stub
 		List<Trends> trendsMap=new ArrayList<Trends>();
 		StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from");
 		sql.append("(select  to_char(tr_date,'yyyy-mm-dd') y, a.* from trends  a  where a.tr_type=? order by tr_date desc ) b  where rownum<"+rows+")");
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(trends.getTr_type());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), parmas);
 		try {
 			while(res.next()){
@@ -47,7 +57,11 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+/**
+ * 获取公司动态消息记录的总条数
+ * 
+ * @return int
+ */
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -59,6 +73,7 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 			sql.append(" and tr_type=?");
 			parmas.add(trends.getTr_type());
 		}
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), parmas);
 	try {
 		while(res.next()){
@@ -70,7 +85,12 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 	}
 		return count;
 	}
-
+  /**
+   * 分页获取公司动态消息
+   * @param curPage 当前页
+   * @param rowsPrePage 每页显示记录条数
+   * @return Map<Long,Object>
+   */
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -78,6 +98,7 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 		Trends trends=(Trends) object;
 		 StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from(select  to_char(tr_date,'yyyy-mm-dd') y, a.* from trends  a  where 1=1");
 		 Map<Long, Object> trendsMap=new HashMap<Long, Object>();
+		 //动态绑定参数和延伸sql语句
 			List<Object> params=new ArrayList<Object>();
 
 			if(trends.getTr_type()!=null){
@@ -85,6 +106,7 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 				params.add(trends.getTr_type());
 			}
 			sql.append(" order by tr_date desc ) b  where rownum<=("+curPage+")*("+rowsPrePage+")) where rn>(("+curPage+")-1)*("+rowsPrePage+")");
+			//获取结果集
 			ResultSet res=	 DbUtil.executeQuery(sql.toString(), params);
 			
 		    try {
@@ -104,7 +126,11 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 			}
 			return trendsMap;
 	}
-
+       /**
+        * 按编号获取动态消息
+        * @param  rows 获取记录的条数
+        * @return List<Trends> 
+        */
 	@Override
 	public Trends getTrendsByWhere(Trends trends) {
 		// TODO Auto-generated method stub
@@ -112,10 +138,12 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 		List<Trends> trendsMap=new ArrayList<Trends>();
 		StringBuffer sql=new StringBuffer("select  to_char(tr_date,'yyyy-mm-dd') y, a.* from trends  a  where 1=1 ");
 		List<Object> parmas=new ArrayList<Object>();
+		//动态绑定参数和延伸sql语句
 		if(trends.getTr_id()!=0){
 			sql.append(" and tr_id=?");
 			parmas.add(trends.getTr_id());
 		}
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), parmas);
 		try {
 			while(res.next()){
