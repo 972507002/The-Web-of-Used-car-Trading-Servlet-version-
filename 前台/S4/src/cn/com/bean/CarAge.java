@@ -20,7 +20,7 @@ public String getA_name() {
 }
 public void setA_name(String a_name) {
 	this.a_name = a_name;
-}
+} 
 public long getA_count() {
 	return a_count;
 }
