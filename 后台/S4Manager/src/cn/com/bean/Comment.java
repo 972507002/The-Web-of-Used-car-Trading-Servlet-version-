@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 评价信息类 
-6  * @author lej 
-7  */ 
+  * 评价信息类 
+  * @author lej 
+  */ 
 
 public class Comment implements Serializable {
   private long uid;  //用户编号
