@@ -2,10 +2,10 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  *  
-6  * 用户信息类 
-7  * @author lej 
-8  */ 
+  *  
+  * 用户信息类 
+  * @author lej 
+  */ 
 
 public class UserInfo implements Serializable {
   private long u_id; //用户编号
