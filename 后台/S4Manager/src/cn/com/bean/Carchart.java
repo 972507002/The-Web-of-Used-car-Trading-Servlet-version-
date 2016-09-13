@@ -1,11 +1,14 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-
+/**
+ * 汽车品牌销量处理类
+ * 
+ */
 public class Carchart implements Serializable {
-private String c_brand;
-private int c_count;
-private String c_selltime;
+private String c_brand; //汽车品牌
+private int c_count; //销售量
+private String c_selltime; //卖出时间
 public String getC_brand() {
 	return c_brand;
 }
