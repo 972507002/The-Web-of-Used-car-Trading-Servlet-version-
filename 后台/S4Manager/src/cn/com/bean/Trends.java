@@ -1,8 +1,8 @@
 package cn.com.bean;
 /** 
-5  * 公司动态信息类 
-6  * @author lej 
-7  */ 
+  * 公司动态信息类 
+  * @author lej 
+  */ 
 
 public class Trends {
    private long tr_id; //动态信息编号
