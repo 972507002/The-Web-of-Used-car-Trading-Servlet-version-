@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 个人需求信息类 
-6  *@author lej 
-7  */ 
+  * 个人需求信息类 
+  *@author lej 
+  */ 
 
 public class PersonNeed implements Serializable {
  private long p_id; //需求编号
