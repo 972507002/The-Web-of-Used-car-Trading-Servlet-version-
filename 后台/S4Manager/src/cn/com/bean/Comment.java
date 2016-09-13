@@ -1,15 +1,19 @@
 package cn.com.bean;
 
 import java.io.Serializable;
+/** 
+5  * 评价信息类 
+6  * @author lej 
+7  */ 
 
 public class Comment implements Serializable {
-  private long uid;
-  private String c_text;
-  private String c_date;
-  private long cid;
-  private String c_img;
-  private String c_bt;
-  private String c_admin;
+  private long uid;  //用户编号
+  private String c_text; //评价正文
+  private String c_date; //评价日期
+  private long cid; //评价编号
+  private String c_img; //评价图片
+  private String c_bt; //评价标题
+  private String c_admin; //评价等级
 public String getC_admin() {
 	return c_admin;
 }
