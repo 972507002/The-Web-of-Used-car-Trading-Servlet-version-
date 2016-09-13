@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 车系信息类 
-6  * @author lej 
-7  */ 
+  * 车系信息类 
+  * @author lej 
+  */ 
 
 public class Model  implements Serializable{
  private int m_id; //车系ID
