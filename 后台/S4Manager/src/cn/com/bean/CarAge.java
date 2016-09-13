@@ -1,10 +1,10 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-/** 
-5  * 车龄信息类 
-6  * @author lej 
-7  */ 
+/**
+ * 车龄信息类
+ * @author lej
+ */
 
 public class CarAge implements Serializable{
  private int a_id; //车龄编号
