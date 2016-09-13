@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 价格区间信息类 
-6  * @author lej 
-7  */ 
+  * 价格区间信息类 
+  * @author lej 
+  */ 
 
 public class PriceInterval implements Serializable{
  private int p_id; //价格编号
