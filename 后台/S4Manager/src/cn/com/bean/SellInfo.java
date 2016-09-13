@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 销售信息类 
-6  * @author lej 
-7  */ 
+  * 销售信息类 
+  * @author lej 
+  */ 
 
 public class SellInfo  implements Serializable{
  private long u_id; //车主编号
