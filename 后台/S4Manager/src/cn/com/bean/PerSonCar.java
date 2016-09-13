@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 个人汽车订单类 
-6  * @author lej 
-7  */ 
+  * 个人汽车订单类 
+  * @author lej 
+  */ 
 
 public class PerSonCar implements Serializable {
 	private long p_id; //个人汽车订单编号
