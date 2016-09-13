@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 行驶距离类 
-6  * @author  lej 
-7  */ 
+  * 行驶距离类 
+  * @author  lej 
+  */ 
 
 public class Distance implements Serializable {
     private int d_id; //行驶距离编号
