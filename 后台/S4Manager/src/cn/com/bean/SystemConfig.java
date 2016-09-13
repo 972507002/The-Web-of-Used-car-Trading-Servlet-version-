@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 车辆系统配置类 
-6  * @author lej 
-7  */ 
+  * 车辆系统配置类 
+  * @author lej 
+  */ 
 
 public class SystemConfig implements Serializable {
  private long u_id; //车主编号
