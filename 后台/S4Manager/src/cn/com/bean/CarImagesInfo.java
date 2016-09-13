@@ -1,10 +1,14 @@
 package cn.com.bean;
 
 import java.io.Serializable;
+/** 
+5  *车辆照片信息类  
+6  * @author lej 
+7  */ 
 
 public class CarImagesInfo implements Serializable {
-private long c_id;
-private long u_id;
+private long c_id; //车辆编号
+private long u_id; //车主编号
 private String image1;
 private String image2;
 private String image3;
