@@ -1,13 +1,17 @@
 package cn.com.bean;
 
 import java.io.Serializable;
+/** 
+5  * 个人汽车订单类 
+6  * @author lej 
+7  */ 
 
 public class PerSonCar implements Serializable {
-	private long p_id;
-	private long u_id;
-	  private long c_uid;
-	  private long c_id;
-	  private String p_state;
+	private long p_id; //个人汽车订单编号
+	private long u_id;  //用户编号
+	  private long c_uid;  //车主编号
+	  private long c_id;  //车辆编号
+	  private String p_state;  //订单状态
 	  
 	public long getP_id() {
 		return p_id;
