@@ -1,17 +1,22 @@
 package cn.com.bean;
 
 import java.io.Serializable;
+/** 
+6  * 汽车基本信息类 
+7  * @author le 
+8  * 
+9  */ 
 
 public class BasicInfo implements Serializable {
- private long u_id;
- private long c_id;
- private String aidd;
- private String srdt;
- private String bodyColor;
- private String interiorColor;
- private String domf;
- private String orgin;
- private String cimd;
+ private long u_id;  //车主编号
+ private long c_id;  //汽车编号
+ private String aidd; //年检到期时间
+ private String srdt; //强险到期时间
+ private String bodyColor; //车身颜色
+ private String interiorColor; //内饰颜色
+ private String domf;  //出厂日期
+ private String orgin;  //产地
+ private String cimd; //商业险到期日期
 public long getU_id() {
 	return u_id;
 }
