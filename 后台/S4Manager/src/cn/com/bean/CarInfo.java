@@ -1,10 +1,10 @@
 package cn.com.bean;
 
 import java.io.Serializable;
-/** 
-6  * 车辆概要信息类 
-7  * @author lej 
-8  */ 
+/**
+ * 车辆概要信息类
+ * @author lej
+ */
 
 public class CarInfo implements Serializable {
  private long u_id; //车主编号
