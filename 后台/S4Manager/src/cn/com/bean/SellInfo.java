@@ -1,13 +1,17 @@
 package cn.com.bean;
 
 import java.io.Serializable;
+/** 
+5  * 销售信息类 
+6  * @author lej 
+7  */ 
 
 public class SellInfo  implements Serializable{
- private long u_id;
- private long c_id;
- private String priceType;
- private String transferFee;
- private String stage;
+ private long u_id; //车主编号
+ private long c_id; //车辆编号
+ private String priceType; //价格类型
+ private String transferFee; //含过户费
+ private String stage; //支持分期
 public long getU_id() {
 	return u_id;
 }
