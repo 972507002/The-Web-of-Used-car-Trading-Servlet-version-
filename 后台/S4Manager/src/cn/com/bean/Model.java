@@ -1,11 +1,15 @@
 package cn.com.bean;
 
 import java.io.Serializable;
+/** 
+5  * 车系信息类 
+6  * @author lej 
+7  */ 
 
 public class Model  implements Serializable{
- private int m_id;
- private int b_id;
- private String m_name;
+ private int m_id; //车系ID
+ private int b_id; //品牌ID
+ private String m_name; //车型名称
 public int getM_id() {
 	return m_id;
 }
