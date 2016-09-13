@@ -2,9 +2,9 @@ package cn.com.bean;
 
 import java.io.Serializable;
 /** 
-5  * 排放标准信息类 
-6  * @author lej 
-7  */ 
+  * 排放标准信息类 
+  * @author lej 
+  */ 
 
 public class Emissionstandard implements Serializable {
   private int e_id; //排放标准编号
