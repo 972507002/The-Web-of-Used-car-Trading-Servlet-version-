@@ -14,7 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import cn.com.bean.UserInfo;
 
-
+/**
+ * 权限过滤器
+ * 
+ * @author lej
+ */
 public class AdminFilter implements Filter{
 
 	@Override
@@ -31,17 +35,17 @@ public class AdminFilter implements Filter{
 		 HttpServletResponse resp=(HttpServletResponse) arg1;
 		 HttpSession session=req.getSession();
 		Object object=  session.getAttribute("userinfo");
-	if(object!=null){
+	if(object!=null){   //获取session中的用户对象并检验是否为空
 		UserInfo userInfo=(UserInfo) object;
-		if(userInfo.getU_admin().equals("����Ա")){
-			arg2.doFilter(arg0, arg1);
+		if(userInfo.getU_admin().equals("管理员")){ //判断对象的权限是否为管理员
+			arg2.doFilter(arg0, arg1);  //是则通过请求
 		}
 		else{
-         resp.sendRedirect("/S4Manager/UserInfo.action?op=needLogin");
+         resp.sendRedirect("/S4Manager/UserInfo.action?op=needLogin");   //否则转向登陆页面
 		}
 	}
 	else{
-		resp.sendRedirect("/S4Manager/UserInfo.action?op=needLogin");
+		resp.sendRedirect("/S4Manager/UserInfo.action?op=needLogin"); //否则转向登陆页面
 	}
 	}
 
