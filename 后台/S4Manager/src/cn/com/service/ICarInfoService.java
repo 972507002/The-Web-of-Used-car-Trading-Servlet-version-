@@ -60,13 +60,13 @@ public interface ICarInfoService {
   /**
    * 修改汽车概要信息的服务
    * @parma carInfo
-   * @return int
+   * @return boolean
    */
 	public boolean updateCarInfo(CarInfo carInfo);
   /**
    * 添加汽车概要信息的服务
    * @parma carInfo
-   * @return int
+   * @return boolean
    */
 	public boolean addCarInfo(CarInfo carInfo);
 /**
@@ -78,12 +78,12 @@ public interface ICarInfoService {
   /**
    * 修改汽车所有概要信息的服务
    * @parma carInfo
-   * @return int
+   * @return boolean
    */
 	public boolean updateCarAll(CarInfo carInfo);
 /**
  * 根据车主编号删除汽车概要信息的服务
- *@return int  
+ *@return boolean  
  */
 	 public boolean deletecarinfouser(CarInfo c);
 /**
@@ -94,7 +94,7 @@ public interface ICarInfoService {
 	 public boolean checkcarinfouser(CarInfo c);
  /**
  * 根据车编号删除汽车概要信息的服务
- *@return int  
+ *@return boolean  
  */
 	 public boolean deletecarinfo(CarInfo c) ;
 }
