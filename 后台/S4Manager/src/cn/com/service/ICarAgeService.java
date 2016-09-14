@@ -14,17 +14,17 @@ public interface ICarAgeService {
 	public Map<Integer,CarAge> getCarAgeByCount();
 	/**
 	 * 添加车龄信息的服务
-	 * @return   int
+	 * @return   boolean
 	 */
 	public boolean addCarAge(CarAge carAge);
 	/**
 	 * 删除车龄信息的服务
-	 * @return   int
+	 * @return   boolean
 	 */
 	public boolean deleteCarAge(CarAge carAge);
 	/**
 	 * 修改车龄信息的服务
-	 * @return   int
+	 * @return   boolean
 	 */
 	public boolean updateCarAge(CarAge carAge);
 	/**
