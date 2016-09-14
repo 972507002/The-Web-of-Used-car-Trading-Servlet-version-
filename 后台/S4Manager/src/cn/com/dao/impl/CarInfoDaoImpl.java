@@ -5,18 +5,27 @@ import cn.com.dao.*;
 import java.util.*;
 import java.sql.*;
 
-
+/**
+ * 汽车概要信息操作实现类
+ * @author lej
+ */
 public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 
-	
+	/**
+ * 按热度获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */
 	@Override
 	public Map<Long, CarInfo> getCarInfoByCountDesc(CarInfo _carInfo) {
 		// TODO Auto-generated method stub
 		Map<Long, CarInfo> carInfoMap=new HashMap<Long, CarInfo>();
 		StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from");
 		sql.append("(select to_char(C_licencetime,'yyyy-mm') y, a.* from carinfo  a where a.c_state=? order by c_count desc) b  where rownum<5)");
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(_carInfo.getC_state());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), params);
 		try {
 			while(res.next()){
@@ -51,16 +60,22 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-	
+	/**
+ * 按热度和品牌获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */
 	@Override
 	public Map<Long, CarInfo> getCarInfoByBrandCountDesc(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		Map<Long, CarInfo> carInfoMap=new HashMap<Long, CarInfo>();
 		StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from");
 		sql.append("(select to_char(C_licencetime,'yyyy-mm') y, a.* from carinfo  a where a.c_brand=? and a.c_state=? order by c_count desc) b  where rownum<5)");
+		//绑定参数
 		 List<Object> params=new ArrayList<Object>();
 		params.add( carInfo.getC_brand());
 		params.add(carInfo.getC_state());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), params);
 		try {
 			while(res.next()){
@@ -95,15 +110,21 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-
+/**
+ * 按上架时间获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */
 	@Override
 	public Map<Long, CarInfo> getCarInfoBySjTime(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		Map<Long, CarInfo> carInfoMap=new HashMap<Long, CarInfo>();
 		StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from");
 		sql.append("(select  to_char(C_licencetime,'yyyy-mm') y, a.* from carinfo  a  where a.c_state=? order by c_sjtime desc ) b  where rownum<4)");
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(carInfo.getC_state());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), parmas);
 		try {
 			while(res.next()){
@@ -138,15 +159,21 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-	
+	/**
+ * 获取四辆最新上架的汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */
 	@Override
 	public Map<Long, CarInfo> getFourthCarInfoBySjTime(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		Map<Long, CarInfo> carInfoMap=new HashMap<Long, CarInfo>();
 		StringBuffer sql=new StringBuffer("select  rownum rn ,b.* from(");
 		sql.append("select * from(select rownum rn , b.* from(select to_char(C_licencetime,'yyyy-mm') y, a.* from carinfo  a where a.c_state=? order by c_sjtime desc) b  where rownum<5))b where rn>3");
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(carInfo.getC_state());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), parmas);
 		try {
 			while(res.next()){
@@ -181,16 +208,22 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-
+/**
+ * 按热度和车型获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */
 	@Override
 	public Map<Long, CarInfo> getCarInfoByTypeCountDesc(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		Map<Long, CarInfo> carInfoMap=new HashMap<Long, CarInfo>();
 		StringBuffer sql=new StringBuffer("select * from(select  rownum rn , b.* from");
 		sql.append("(select to_char(C_licencetime,'yyyy-mm') y, a.* from carinfo  a where a.c_type=? and a.c_state=? order by c_count desc) b  where rownum<5)");
+		 //绑定参数
 		 List<Object> params=new ArrayList<Object>();
 		params.add(carInfo.getC_type());
 		params.add(carInfo.getC_state());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), params);
 		try {
 			while(res.next()){
@@ -226,14 +259,20 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-	
+/**
+ * 按品牌获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */	
 	@Override
 	public Map<Long, CarInfo> getCarInfoByBrand(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		Map<Long, CarInfo> carInfoMap=new HashMap<Long, CarInfo>();
 		StringBuffer sql=new StringBuffer("select to_char(C_licencetime,'yyyy-mm') y, a.* from carinfo where a c_brand=?");
+		//绑定参数
 		 List<Object> params=new ArrayList<Object>();
 		params.add( carInfo.getC_brand());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), params);
 		try {
 			while(res.next()){
@@ -268,14 +307,20 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-	
+/**
+ * 按车型获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */	
 	@Override
 	public Map<Long, CarInfo> getCarInfoByType(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		Map<Long, CarInfo> carInfoMap=new HashMap<Long, CarInfo>();
 		StringBuffer sql=new StringBuffer("select to_char(C_licencetime,'yyyy-mm') y, a.* from carinfo a where c_type=?");
+		//绑定参数
 		 List<Object> params=new ArrayList<Object>();
 		params.add(carInfo.getC_type());
+		//获取结果集
 		ResultSet res=  DbUtil.executeQuery(sql.toString(), params);
 		try {
 			while(res.next()){
@@ -310,7 +355,11 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-	
+/**
+ * 按条件获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   Map<Long, CarInfo>
+ */	
 	@Override
 	public Map<Long, CarInfo> getCarByWhere(CarInfo carInfo) {
 		// TODO Auto-generated method stub
@@ -372,13 +421,23 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		 return carInfoMap;
 	}
 
-
+/**
+ * 获取符合条件的汽车概要信息记录条数
+ * @parma minPrice   最小价格
+ * @parma maxPrice  最大价格
+ * @parma minDis   最小距离
+ * @parma maxDis  最大距离
+ * @parma minAge  最小车龄
+ * @parma maxAge  最大车龄
+ * @return   Map<Long, CarInfo>
+ */
 	@Override
 	public int queryMsgCount(Object object,int minPrice,int maxPrice,int minDis,int maxDis,int minAge,int maxAge) {
 		// TODO Auto-generated method stub
 		int count=0;
 		CarInfo carInfo=(CarInfo)object;
 		StringBuffer sql=new StringBuffer("select count(*) from carinfo where 1=1 ");
+		//动态绑定参数和延伸SQL语句
 		List<Object> params=new ArrayList<Object>();
 		if(carInfo.getC_brand()!=null){
 			sql.append("and c_brand=?");
@@ -419,6 +478,7 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 			sql.append(" and to_number(to_char(sysdate,'yyyy.mm'))-to_number(to_char(C_licencetime,'yyyy.mm'))<"+maxAge+"");
 
 		}
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), params);
 	
 	try {
@@ -433,7 +493,18 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 	return count;
 	}
 
-	
+		/**
+ * 获取符合条件的汽车概要信息
+ * @parma minPrice   最小价格
+ * @parma maxPrice  最大价格
+ * @parma minDis   最小距离
+ * @parma maxDis  最大距离
+ * @parma minAge  最小车龄
+ * @parma maxAge  最大车龄
+ * @parma curPage   当前页
+ * @parma rowsPrePage   页面展示条数
+ * @return   Map<Long, CarInfo>
+ */	
 	@Override
 	public List<Object> showMsgInfoList(int curPage, int rowsPrePage,Object object,String order,int minPrice,int maxPrice,int minDis,int maxDis,int minAge,int maxAge) {
 		List<Object>  carMap=new ArrayList<Object>();
@@ -441,6 +512,7 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("select * from( select to_char(C_licencetime,'yyyy-mm') y,a.*,rownum rn from  ");
 		sql.append("(select * from carinfo where 1=1 ");
+		//动态绑定参数和延伸SQL语句
 		List<Object> params=new ArrayList<Object>();
 		if(carInfo.getC_brand()!=null){
 			sql.append(" and c_brand=?");
@@ -492,7 +564,7 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		}
 		sql.append(")a where rownum<=("+curPage*rowsPrePage+"))");
 		sql.append("where rn>("+curPage+"-1)*"+rowsPrePage+"");
-		
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), params);
 	
 	try {
@@ -544,12 +616,17 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		return null;
 	}
 
-	
+  /**
+   * 修改汽车概要信息的方法
+   * @parma carInfo
+   * @return int
+   */	
 	@Override
 	public int updateCarInfo(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		
 		StringBuffer sql=new StringBuffer("update carinfo set c_id=? ");
+		//动态绑定参数和延伸SQL语句
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(carInfo.getC_id());
 		if(carInfo.getC_count()!=0){
@@ -578,11 +655,16 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		return DbUtil.executeUpdate(sql.toString(), parmas);
 	}
 
-	
+  /**
+   * 添加汽车概要信息的方法
+   * @parma carInfo
+   * @return int
+   */	
 	@Override
 	public int addCarInfo(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		String sql="insert into carinfo values(seq_carinfo.nextval,?,?,?,?,?,?,?,?,to_date(?,'yyyy/mm'),?,?,?,?,?,to_date(?,'yyyy/mm/dd HH24:mi:ss'),?,?,?,?,0)";
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(carInfo.getU_id());
 		parmas.add(carInfo.getC_brand());
@@ -608,15 +690,21 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		return DbUtil.executeUpdate(sql, parmas);
 	}
 
-	
+	/**
+ * 按唯一条件获取汽车概要信息的方法
+ * @parma carInfo
+ * @return   CarInfo
+ */
 	@Override
 	public CarInfo getCarInfoByUMN(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from");
 		sql.append("(select  a.* from carinfo  a where a.u_id=? order by c_sjtime desc) b  where rownum<2)");
+		//参数绑定
 		 List<Object> parmas=new ArrayList<Object>();
 		 parmas.add(carInfo.getU_id());
 		 CarInfo _carInfo=null;
+		 //获取结果集
 		ResultSet res= DbUtil.executeQuery(sql.toString(), parmas);
 		 try {
 				while(res.next()){
@@ -651,13 +739,17 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		return _carInfo;
 	}
 
-
+ /**
+   * 修改汽车所有概要信息的方法
+   * @parma carInfo
+   * @return int
+   */
 	@Override
 	public int updateCarAll(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("update carinfo set c_brand=?,c_series=?,c_releaseyear=?,c_volume=?,c_geartype=?,c_code=?,c_model=?,c_licencetime=to_date(?,'yyyy/mm'),c_distance=?,c_emissionstandard=?,c_price=?,c_img=?,c_type=?,c_czzx=? where c_id=?");
 		List<Object> parmas=new ArrayList<Object>();
-		
+		//参数绑定
 		parmas.add(carInfo.getC_brand());
 		parmas.add(carInfo.getC_series());
 		parmas.add(carInfo.getC_releaseyear());
@@ -678,21 +770,29 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		return DbUtil.executeUpdate(sql.toString(), parmas);
 	}
 
-	
+	 /**
+ * 根据车主编号删除汽车概要信息的方法
+ *@return int  
+ */
 	@Override
 	public int deletecarinfouser(CarInfo u) {
 		// TODO Auto-generated method stub
 		String sql="delete from carinfo where u_id=?";
+		//参数绑定
 		List<Object> params=new ArrayList<Object>();
 		params.add(u.getU_id());
 		return DbUtil.executeUpdate(sql, params);
 	}
 
-	
+	  /**
+ * 根据车编号删除汽车概要信息的方法
+ *@return int  
+ */
 	@Override
 	public int deletecarinfo(CarInfo c) {
 		// TODO Auto-generated method stub
 		String sql="delete from carinfo where c_id=?";
+		//参数绑定
 		List<Object> params=new ArrayList<Object>();
 		params.add(c.getC_id());
 		
@@ -700,19 +800,26 @@ public class CarInfoDaoImpl implements ICarInfoDao,IPageDao{
 		return DbUtil.executeUpdate(sql, params);
 	}
 
-
+/**
+ * 
+ * 检查是否还有与某车主编号关联的汽车概要信息
+ * @return boolean
+ */
 	@Override
 	public boolean checkcarinfouser(CarInfo c) {
 		// TODO Auto-generated method stub
 		boolean flag=false;
 		String sql="select * from carinfo where u_id=?";
+		//参数绑定
 		List<Object> params=new ArrayList<Object>();
 		params.add(c.getU_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next())
 			{
-				flag=true;
+				flag=true; //若存在则返回真
+				break;  //跳出循环
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
