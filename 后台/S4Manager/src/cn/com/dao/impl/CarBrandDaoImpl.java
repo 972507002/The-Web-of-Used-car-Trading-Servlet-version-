@@ -9,7 +9,7 @@ import java.sql.*;
  * @author lej
  */
 public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
-
+ 
   /**
    * 按热度获取品牌信息的方法
    * @return  Map<Integer, CarBrand>
