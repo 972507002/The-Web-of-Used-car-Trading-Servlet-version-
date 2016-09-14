@@ -18,7 +18,10 @@ import cn.com.service.impl.PersonCarServiceImpl;
 import cn.com.service.impl.PersonNeedServiceImpl;
 import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
-
+/**
+ * è®¢å•ç®¡ç†å¼•æ“
+ * 
+ */
 public class MgorderServlet extends HttpServlet{
       PersonCarServiceImpl perSonCarService=new PersonCarServiceImpl();
 	@Override
@@ -26,33 +29,38 @@ public class MgorderServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session=req.getSession();
-		req.setCharacterEncoding("utf-8");
-		resp.setCharacterEncoding("utf-8");
-		String op=req.getParameter("op");
+		req.setCharacterEncoding("utf-8"); //è®¾ç½®è¯·æ±‚ç¼–ç 
+		resp.setCharacterEncoding("utf-8"); //è®¾ç½®å“åº”ç¼–ç 
+		String op=req.getParameter("op");  //å‘½ä»¤æ“ä½œç¬¦
+		//å±•ç¤ºæš‚åœäº¤æ˜“çš„è®¢å•
 		if(op.equals("showzzjy")){
 			PerSonCar perSonCar=new PerSonCar();
-			perSonCar.setP_state("ÔİÍ£½»Ò×");
+			perSonCar.setP_state("æš‚åœäº¤æ˜“");
 			this.fenye(req, resp, perSonCar);
 			req.getRequestDispatcher("admin/zzjy.jsp").forward(req, resp);
 		}
+		//å±•ç¤ºäº¤æ˜“ä¸­çš„è®¢å•
 		if(op.equals("showjyz")){
 			PerSonCar perSonCar=new PerSonCar();
-			perSonCar.setP_state("ÒÑ¶¨");
+			perSonCar.setP_state("å·²å®š");
 			this.fenye(req, resp, perSonCar);
 			req.getRequestDispatcher("admin/jyz.jsp").forward(req, resp);
 		}
+		//å±•ç¤ºäº¤æ˜“å®Œæˆçš„è®¢å•
 		if(op.equals("showjywc")){
 			PerSonCar perSonCar=new PerSonCar();
-			perSonCar.setP_state("½»Ò×Íê³É");
+			perSonCar.setP_state("äº¤æ˜“å®Œæˆ");
 			this.fenye(req, resp, perSonCar);
 			req.getRequestDispatcher("admin/jywc.jsp").forward(req, resp);
 		}
+		//å±•ç¤ºæ‰€æœ‰è®¢å•
 		if(op.equals("showallord")){
 			PerSonCar perSonCar=new PerSonCar();
 			
 			this.fenye(req, resp, perSonCar);
 			req.getRequestDispatcher("admin/allorder.jsp").forward(req, resp);
 		}
+		//é€šè¿‡å–æ¶ˆäº¤æ˜“è¯·æ±‚
 		if(op.equals("tgzz")){
 			
 			String uid=req.getParameter("uid");
@@ -62,20 +70,21 @@ public class MgorderServlet extends HttpServlet{
 			perSonCar.setU_id(Long.parseLong(uid));
 			perSonCar.setC_id(Long.parseLong(cid));
 			perSonCar.setC_uid(Long.parseLong(cuid));
-			perSonCar.setP_state("ÔİÍ£½»Ò×");
+			perSonCar.setP_state("æš‚åœäº¤æ˜“");
 			CarInfo carInfo=new CarInfo();
 			carInfo.setC_id(Long.parseLong(cid));
-			carInfo.setC_state("ÔÚÊÛ");
+			carInfo.setC_state("åœ¨å”®");
 			PerSonCar _PerSonCar=new PerSonCar();
 			_PerSonCar.setU_id(Long.parseLong(cuid));
 			_PerSonCar.setC_id(Long.parseLong(cid));
 			_PerSonCar.setC_uid(Long.parseLong(cuid));
-			_PerSonCar.setP_state("ÔİÍ£½»Ò×");
+			_PerSonCar.setP_state("æš‚åœäº¤æ˜“");
 			CarInfoServiceImpl carInfoServiceImpl=new CarInfoServiceImpl();
-			if(perSonCarService.updatePerSoncar(_PerSonCar, "³öÊÛ")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
+			if(perSonCarService.updatePerSoncar(_PerSonCar, "å‡ºå”®")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
 				resp.getWriter().print(1);
 			}
 		}
+		//å¼ºåˆ¶ä¸­æ­¢æ“ä½œ
 if(op.equals("qzzz")){
 			
 			String uid=req.getParameter("uid");
@@ -85,20 +94,21 @@ if(op.equals("qzzz")){
 			perSonCar.setU_id(Long.parseLong(uid));
 			perSonCar.setC_id(Long.parseLong(cid));
 			perSonCar.setC_uid(Long.parseLong(cuid));
-			perSonCar.setP_state("ÒÑ¶¨");
+			perSonCar.setP_state("å·²å®š");
 			CarInfo carInfo=new CarInfo();
 			carInfo.setC_id(Long.parseLong(cid));
-			carInfo.setC_state("ÔÚÊÛ");
+			carInfo.setC_state("åœ¨å”®");
 			PerSonCar _PerSonCar=new PerSonCar();
 			_PerSonCar.setU_id(Long.parseLong(cuid));
 			_PerSonCar.setC_id(Long.parseLong(cid));
 			_PerSonCar.setC_uid(Long.parseLong(cuid));
-			_PerSonCar.setP_state("±»¶¨");
+			_PerSonCar.setP_state("è¢«å®š");
 			CarInfoServiceImpl carInfoServiceImpl=new CarInfoServiceImpl();
-			if(perSonCarService.updatePerSoncar(_PerSonCar, "³öÊÛ")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
+			if(perSonCarService.updatePerSoncar(_PerSonCar, "å‡ºå”®")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
 				resp.getWriter().print(1);
 			}
 		}
+		//æ‹’ç»ä¸­æ­¢æ“ä½œ
 		if(op.equals("jjzz")){
 			String uid=req.getParameter("uid");
 			String cuid=req.getParameter("cuid");
@@ -107,26 +117,28 @@ if(op.equals("qzzz")){
 			perSonCar.setU_id(Long.parseLong(uid));
 			perSonCar.setC_id(Long.parseLong(cid));
 			perSonCar.setC_uid(Long.parseLong(cuid));
-			perSonCar.setP_state("ÔİÍ£½»Ò×");
+			perSonCar.setP_state("æš‚åœäº¤æ˜“");
 			PerSonCar _PerSonCar=new PerSonCar();
 			_PerSonCar.setU_id(Long.parseLong(cuid));
 			_PerSonCar.setC_id(Long.parseLong(cid));
 			_PerSonCar.setC_uid(Long.parseLong(cuid));
-			_PerSonCar.setP_state("ÔİÍ£½»Ò×");
-			if(perSonCarService.updatePerSoncar(_PerSonCar, "±»¶¨")&&perSonCarService.updatePerSoncar(perSonCar, "ÒÑ¶¨")){
+			_PerSonCar.setP_state("æš‚åœäº¤æ˜“");
+			if(perSonCarService.updatePerSoncar(_PerSonCar, "è¢«å®š")&&perSonCarService.updatePerSoncar(perSonCar, "å·²å®š")){
 				resp.getWriter().print(1);
 			}
 		}
+		//å±•ç¤ºå·²å¤„ç†ä¸ªäººéœ€æ±‚ä¿¡æ¯
 		if(op.equals("yclsrdz")){
 			String id=req.getParameter("pid");
 			PersonNeed personNeed=new PersonNeed();
 			personNeed.setP_id(Long.parseLong(id));
-			personNeed.setP_state("ÒÑ´¦Àí");
+			personNeed.setP_state("å·²å¤„ç†");
 			PersonNeedServiceImpl personNeedServiceImpl=new PersonNeedServiceImpl();
 			if(personNeedServiceImpl.updatePersonNeed(personNeed)){
 				resp.getWriter().print(1);
 			}
 		}
+		//åˆ é™¤ä¸ªäººéœ€æ±‚ä¿¡æ¯
 		if(op.equals("delsrdz")){
 			String id=req.getParameter("pid");
 			PersonNeed personNeed=new PersonNeed();
@@ -138,6 +150,10 @@ if(op.equals("qzzz")){
 			}
 		}
 	}
+	/**
+	 * åˆ†é¡µå±•ç¤ºä¸ªäººæ±½è½¦è®¢å•çš„æ–¹æ³•
+	 * 
+	 */
 private void fenye(HttpServletRequest req, HttpServletResponse resp,PerSonCar perSonCar){
 		
 		
@@ -150,9 +166,9 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,PerSonCar pe
 		
    
 	 int maxRowsCount=perSonCarService.queryPersonCarCount(perSonCar);
-		//´¦Àí·ÖÒ³Âß¼­<=>µ÷ÓÃ
+		//å¤„ç†åˆ†é¡µé€»è¾‘<=>è°ƒç”¨
 		PageUtil pageUtil=new PageUtil(9, maxRowsCount);
-		// ´¦ÀíÒ³ÂëÂß¼­
+		// å¤„ç†é¡µç é€»è¾‘
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
