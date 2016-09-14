@@ -34,7 +34,7 @@ public interface IPriceIntervalDao {
    /**
    * 
    * 获取价格区间信息的方法
-   * @return int
+   * @return PriceInterval
    */
   public PriceInterval getPriceIntervalById(PriceInterval priceInterval);
   
