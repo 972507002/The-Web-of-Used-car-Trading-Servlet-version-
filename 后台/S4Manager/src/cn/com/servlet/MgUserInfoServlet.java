@@ -13,6 +13,10 @@ import cn.com.util.DbUtil;
 import cn.com.bean.*;
 import cn.com.service.*;
 import cn.com.service.impl.*;
+/**
+ * 用户信息管理引擎
+ * 
+ */
 public class MgUserInfoServlet extends HttpServlet {
 
 	@Override
@@ -20,9 +24,10 @@ public class MgUserInfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		UserInfoServiceImpl userInfoServiceImpl=new UserInfoServiceImpl();
-		req.setCharacterEncoding("utf-8");
-		resp.setCharacterEncoding("utf-8");
-	String op=req.getParameter("op");
+		req.setCharacterEncoding("utf-8"); //设置请求编码
+		resp.setCharacterEncoding("utf-8"); //设置响应编码
+	String op=req.getParameter("op"); //命令操作符
+	//修改用户信息请求
 	if(op.equals("uptadeuser")){
 		String uid=req.getParameter("uid");
 		UserInfo userInfo=new UserInfo();
@@ -31,6 +36,7 @@ public class MgUserInfoServlet extends HttpServlet {
 	req.setAttribute("getuser",info );
 	req.getRequestDispatcher("admin/user-modify.jsp").forward(req, resp);
 	}
+	//提交修改
 	 if(op.equals("update")){
 			
 		 String card=req.getParameter("card");
@@ -66,6 +72,7 @@ public class MgUserInfoServlet extends HttpServlet {
 		 }
 		 
 	 }
+	 //新增用户操作
 	 if(op.equals("reguser")){
 			
 			long regname=Long.parseLong(req.getParameter("mobile"));
@@ -78,7 +85,7 @@ public class MgUserInfoServlet extends HttpServlet {
 		     userInfo.setU_tel(regname);
 		     if(userInfoServiceImpl.getUserInfoByUnique(userInfo)!=null){
 		    	 DbUtil.closeAll();
-		    	 regmessage="���û��Ѵ���";
+		    	 regmessage="该用户已存在";
 		    	
 		    	 
 		     }
@@ -89,13 +96,13 @@ public class MgUserInfoServlet extends HttpServlet {
 			     userInfo.setU_admin(admin);
 			     if(userInfoServiceImpl.addUserInfo(userInfo)){
 			    	 DbUtil.closeAll();
-			    	 regmessage="���ӳɹ�";
+			    	 regmessage="添加成功";
 			   
 			    req.setAttribute("regmessage", regmessage);
 			     }
 			     else{
 			    	 DbUtil.closeAll();
-			    	 regmessage="����ʧ��";
+			    	 regmessage="添加失败";
 			    	
 			     }
 		     }
@@ -103,7 +110,8 @@ public class MgUserInfoServlet extends HttpServlet {
 				req.getRequestDispatcher("admin/user-add.jsp").forward(req, resp);
 
 			 }
-	 if(op.equals("del"))//ɾ��
+			 
+	 if(op.equals("del"))//删除用户操作（先删除子表，再删主表）
 		{  
 		 IBasicInfoService iBasicInfoService=new BasicInfoServiceImpl();
 			IHardwareConfigService iHardwareConfigService=new HardwareConfigServiceImpl();
@@ -240,6 +248,7 @@ public class MgUserInfoServlet extends HttpServlet {
 				resp.getWriter().print(0);
 			}
 		}
+		//展示用户详细信息操作
 	 if(op.equals("showdeauser")){
 		 String uid=req.getParameter("uid");
 		 UserInfo info=new UserInfo();
