@@ -25,17 +25,17 @@ public interface ICarBrandService {
 	public CarBrand getBrandByID(CarBrand carBrand);
   /**
    * 添加品牌的服务
-   *@return int
+   *@return boolean
    */
 	 public boolean addCarBrand(CarBrand carBrand);
   /**
    * 修改品牌的服务
-   *@return int
+   *@return boolean
    */
 	  public boolean updateCarBrand(CarBrand carBrand);
   /**
    * 删除品牌的服务
-   *@return int
+   *@return boolean
    */
 	  public boolean deleteCarBrand(CarBrand carBrand);
 }
