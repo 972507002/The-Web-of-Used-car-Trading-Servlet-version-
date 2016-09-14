@@ -15,7 +15,7 @@ public interface ICarchartDao {
    */
 public List<Carchart> chartinfo(int year,int month);
 /**
- * 插叙不同年的方法
+ * 查询不同年的方法
  * 
  */
 public List<Carchart> chartinfo( );
