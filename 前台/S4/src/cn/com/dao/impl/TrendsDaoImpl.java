@@ -127,9 +127,8 @@ public class TrendsDaoImpl  implements ITrendsDao,IPageDao {
 			return trendsMap;
 	}
        /**
-        * 按编号获取动态消息
-        * @param  rows 获取记录的条数
-        * @return List<Trends> 
+        * 按条件获取动态消息
+        * @return Trends
         */
 	@Override
 	public Trends getTrendsByWhere(Trends trends) {
