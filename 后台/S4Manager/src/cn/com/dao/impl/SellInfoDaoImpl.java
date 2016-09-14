@@ -11,21 +11,22 @@ import cn.com.bean.CarInfo;
 import cn.com.bean.SellInfo;
 import cn.com.dao.ISellInfoDao;
 import cn.com.util.DbUtil;
-
-public class SellInfoDaoImpl implements ISellInfoDao{
 /**
- * ��ȡ����������Ϣ
- */
-//	private long u_id;
-//	 private long c_id;
-//	 private String priceType;
-//	 private String transferFee;
-//	 private String stage;
+  * 
+  * 销售信息操作实现类
+  * @author lej
+  */
+public class SellInfoDaoImpl implements ISellInfoDao{
+        /**
+	 * 获取所有销售信息
+	 * @return   Map<Long, SellInfo>
+	 */
 	@Override
 	public Map<Long, SellInfo> getAllSellInfo() {
 		// TODO Auto-generated method stub
 		String sql="select * from sellinfo";
 		Map<Long, SellInfo> sellInfoMap=new HashMap<Long, SellInfo>();
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, null);
 		try {
 			while(res.next()){
@@ -44,16 +45,19 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 		return sellInfoMap;
 	}
 /**
- * ���ݳ���Ż�ȡ�������
+ * 根据车编号获取销售信息
+ * @return SellInfo
  */
 	@Override
 	public SellInfo getSellInfoById(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		SellInfo sellInfo2=null;
 		String sql="select * from sellInfo where u_id=? and c_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add( carInfo.getU_id());
 		params.add(carInfo.getC_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next()){
@@ -71,12 +75,15 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 		return sellInfo2;
 	}
 /**
- * �����������
+ * 增加销售信息
+ * @param sellInfo
+ * @return int
  */
 	@Override
 	public int addSellInfo(SellInfo sellInfo) {
 		// TODO Auto-generated method stub
 		String sql="insert into sellinfo values(?,?,?,?,?)";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add( sellInfo.getU_id());
 		params.add( sellInfo.getC_id());
@@ -87,12 +94,15 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 		return DbUtil.executeUpdate(sql, params);
 	}
 /**
- * ɾ���������
+ * 删除销售信息
+ * @param sellInfo
+ * @return int
  */
 	@Override
 	public int deleteSellInfo(SellInfo sellInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("delete * from sellinfo where 1=1");
+		//动态绑定参数和延伸sql语句
 		List<Object> params=new ArrayList<Object>();
 		if(sellInfo.getU_id()!=0){
 			sql.append(" and u_id=?");
@@ -102,55 +112,73 @@ public class SellInfoDaoImpl implements ISellInfoDao{
 			sql.append(" and c_id=?");
 			params.add( sellInfo.getC_id());
 		}
-		int count=DbUtil.executeUpdate(sql.toString(), params);
+		int count=DbUtil.executeUpdate(sql.toString(), params); //获取受影响的行数
 		return count;
 	}
+/**
+ * 修改销售信息
+ * @param sellInfo
+ * @return int
+ */
 @Override
 public int updateSellInfo(SellInfo sellInfo) {
 	// TODO Auto-generated method stub
 	List<Object> params=new ArrayList<Object>();
 	StringBuffer sql=new StringBuffer("update  sellinfo set priceType=?,transferFee=?,stage=? where u_id=? and c_id=?");
+	//绑定参数
 	params.add(sellInfo.getPriceType());
 	params.add(sellInfo.getTransferFee());
 	params.add(sellInfo.getStage());
-	
-	
-		params.add(sellInfo.getU_id());
-	
-	
-		params.add(sellInfo.getC_id());
-	
-	
+	params.add(sellInfo.getU_id());
+	params.add(sellInfo.getC_id());
 	return DbUtil.executeUpdate(sql.toString(), params);
 }
+/**
+ * 根据车主编号删除销售信息的方法
+ *@return int  
+ */
 @Override
 public int deletesellinfouser(SellInfo s) {
 	// TODO Auto-generated method stub
 	String sql="delete from sellinfo where u_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(s.getU_id());
 	return DbUtil.executeUpdate(sql, params);
 }
+/**
+ * 根据车编号删除销售信息的方法
+ *@return int  
+ */
 @Override
 public int deletecidsellinfouser(SellInfo s) {
 	// TODO Auto-generated method stub
 	String sql="delete from sellinfo where c_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(s.getC_id());
 	return DbUtil.executeUpdate(sql, params);
 }
+/**
+ * 
+ * 检查是否还有与某车主编号关联的销售信息
+ * @return boolean
+ */
 @Override
 public boolean checksellinfouser(SellInfo s) {
 	// TODO Auto-generated method stub
 	boolean flag=false;
 	String sql="select * from sellinfo where u_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(s.getU_id());
+	//获取结果集
 	ResultSet res=DbUtil.executeQuery(sql, params);
 	try {
 		while(res.next())
 		{
-			flag=true;
+			flag=true; //若结果集存在，则返回为真
+			break; //跳出循环
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -158,18 +186,26 @@ public boolean checksellinfouser(SellInfo s) {
 	}
 	return flag;
 }
+/**
+ * 
+ * 检查是否还有与某车编号关联的销售信息
+ * @return boolean
+ */
 @Override
 public boolean checkcidsellinfouser(SellInfo s) {
 	// TODO Auto-generated method stub
 	boolean flag=false;
 	String sql="select * from sellinfo where c_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(s.getC_id());
+	//获取结果集
 	ResultSet res=DbUtil.executeQuery(sql, params);
 	try {
 		while(res.next())
 		{
-			flag=true;
+			flag=true; //若结果集存在，则返回为真
+			break; //跳出循环
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
