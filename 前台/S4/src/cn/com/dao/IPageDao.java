@@ -29,7 +29,7 @@ public interface IPageDao {
          * @parma minAge  最小车龄
          * @parma maxAge  最大车龄
          * @parma order 排序字段
-	 * @return Map<Integer,Object>
+	 * @return List<Object>
 	 */
 	public List<Object> showMsgInfoList(int curPage, int rowsPrePage,Object object,String order,int minPrice,int maxPrice,int minDis,int maxDis,int minAge,int maxAge);
 	/**
@@ -41,7 +41,7 @@ public interface IPageDao {
 	 * 根据条件获取记录集合
 	 * @param curPage 当前页
 	 * @param rowsPrePage 每页面记录数
-	 * @return Map<Integer,Object>
+	 * @return Map<Long,Object>
 	 */
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,Object object);
 
