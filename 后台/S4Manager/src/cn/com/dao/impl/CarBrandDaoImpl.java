@@ -4,9 +4,16 @@ import cn.com.util.*;
 import cn.com.dao.*;
 import java.util.*;
 import java.sql.*;
+/**
+ * 品牌信息操作实现类
+ * @author lej
+ */
 public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 
-	
+  /**
+   * 按热度获取品牌信息的方法
+   * @return  Map<Integer, CarBrand>
+   */	
 	@Override
 	public Map<Integer, CarBrand> getCarBrandByCount() {
 		// TODO Auto-generated method stub
@@ -14,6 +21,7 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 	   StringBuffer sql= new StringBuffer("select rownum,b.*  from");
 	   sql.append("(select * from carbrand order by b_count desc)b ");
 	   sql.append("where rownum<8");
+	   //绑定结果集
 	  ResultSet res= DbUtil.executeQuery(sql.toString(), null);
 	  try {
 		while(res.next()){
@@ -32,12 +40,16 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 	  return carBrandMap;
 	}
 
-
+  /**
+   * 获取所有品牌信息的方法
+   * @return Map<Integer,CarBrand>
+   */
 	@Override
 	public Map<Integer, CarBrand> getAllBrand() {
 		// TODO Auto-generated method stub
 		 Map<Integer, CarBrand> carBrandMap=new HashMap<Integer, CarBrand>();
 		   StringBuffer sql= new StringBuffer("select * from carbrand");
+		   //获取结果集
 		  ResultSet res= DbUtil.executeQuery(sql.toString(), null);
 		  try {
 			while(res.next()){
@@ -56,14 +68,20 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 		  return carBrandMap;
 	}
 
-	
+  /**
+   * 根据品牌编号获取品牌信息的方法
+   * @param carBrand
+   * @return CarBrand
+   */	
 	@Override
 	public CarBrand getBrandByID(CarBrand carBrand) {
 		// TODO Auto-generated method stub
 		   CarBrand _carBrand=null;
 		   StringBuffer sql= new StringBuffer("select * from carbrand where b_id=? ");
+		   //参数绑定
 		   List<Object> parmas=new ArrayList<Object>();
 		   parmas.add(carBrand.getB_id());
+		   //获取结果集
 		  ResultSet res= DbUtil.executeQuery(sql.toString(), parmas);
 		  try {
 			while(res.next()){
@@ -99,7 +117,10 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 		return null;
 	}
 
-	
+/**
+     * 获取品牌信息的记录总条数
+     * @return int
+     */	
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -107,7 +128,7 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 		
 		
 		StringBuffer sql=new StringBuffer("select count(*) from carbrand where 1=1");
-		
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), null);
 	try {
 		while(res.next()){
@@ -120,7 +141,12 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 		return count;
 	}
 
-	
+/**
+ * 分页获取品牌信息
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -130,6 +156,7 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 		 Map<Long, Object> brandMap=new HashMap<Long, Object>();
 			
 			sql.append(" order by b_count desc ) b  where rownum<=("+curPage+")*("+rowsPrePage+")) where rn>(("+curPage+")-1)*("+rowsPrePage+")");
+			//获取结果集
 			ResultSet res=	 DbUtil.executeQuery(sql.toString(), null);
 			
 		    try {
@@ -149,15 +176,15 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 			return brandMap;
 	}
 
-//	private int b_id;
-//	 private String b_name;
-//	 private long b_count;
-//	 private String b_img;
-//	 private String b_szm;
+        /**
+	 * 添加车龄信息的方法
+	 * @return   int
+	 */
 	@Override
 	public int addCarBrand(CarBrand carBrand) {
 		// TODO Auto-generated method stub
 		String sql="insert into carbrand values(seq_brand.nextval,?,?,?,?)";
+		//参数绑定
 		List<Object> params=new ArrayList<Object>();
 	
 		params.add(carBrand.getB_name());
@@ -168,11 +195,15 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 		return DbUtil.executeUpdate(sql, params);
 	}
 
-
+         /**
+	 * 修改车龄信息的方法
+	 * @return   int
+	 */
 	@Override
 	public int updateCarBrand(CarBrand carBrand) {
 		// TODO Auto-generated method stub
 		String sql="update carbrand set b_name=?,b_count=?,b_img=?,b_szm=? where b_id=?";
+		//参数绑定
 		List<Object> params=new ArrayList<Object>();
 		params.add(carBrand.getB_name());
 		params.add(carBrand.getB_count());
@@ -182,11 +213,15 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 		return DbUtil.executeUpdate(sql, params);
 	}
 
-
+        /**
+	 * 删除车龄信息的方法
+	 * @return   int
+	 */
 	@Override
 	public int deleteCarBrand(CarBrand carBrand) {
 		// TODO Auto-generated method stub
 		List<Object> params=new ArrayList<Object>();
+		//参数绑定
 		String sql="delete from carbrand where b_id=?";
 		params.add(carBrand.getB_id());
 		
