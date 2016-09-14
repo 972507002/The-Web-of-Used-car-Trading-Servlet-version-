@@ -9,13 +9,17 @@ import java.sql.*;
  *@author  lej 
  */
 public class CarAgeDaoImpl implements ICarAgeDao{
-  
+  	/**
+	 * 按热度获取车龄信息的方法
+	 * @return Map<Integer,CarAge>
+	 */
 	@Override
 	public Map<Integer, CarAge> getCarAgeByCount() {
 		// TODO Auto-generated method stub
 		Map<Integer, CarAge> carAgeMap=new HashMap<Integer, CarAge>();
 		StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from");
 		sql.append("(select  a.* from carage  a order by a_count desc) b  where rownum<6)");
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), null);
 	try {
 		while(res.next()){
