@@ -174,6 +174,7 @@ public class ModelServlet extends HttpServlet{
             	 resp.sendRedirect("admin/brand-up.jsp");
             }
 		}
+		//删除品牌操作
 		if(op.equals("delbrand")){
 			ICarBrandService brandService=new CarBrandServiceImpl();
 			String bid=req.getParameter("bid");
