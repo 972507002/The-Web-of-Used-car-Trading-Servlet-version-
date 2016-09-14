@@ -29,7 +29,7 @@ public class EncodingFilter implements Filter{
 		      HttpServletRequest request=(HttpServletRequest) arg0;
 		      HttpServletResponse response=(HttpServletResponse) arg1;
 		      request.setCharacterEncoding(encoding);  //设置请求编码
-		      response.setCharacterEncoding(encoding); //设置相应编码
+		      response.setCharacterEncoding(encoding); //设置响应编码
 		      arg2.doFilter(request, response);//通过
 	}
       //加载
