@@ -11,7 +11,7 @@ import cn.com.bean.*;
 public interface IEmissionstandardDao {
 	/**
 	 * 按热度获取排放标准信息的方法
-	 * @Map<Integer,Emissionstandard>
+	 * @return  Map<Integer,Emissionstandard>
 	 */
 	public Map<Integer,Emissionstandard> getEmissionstandardByCount();
 }
