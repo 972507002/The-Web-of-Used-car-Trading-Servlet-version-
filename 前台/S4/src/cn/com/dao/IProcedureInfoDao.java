@@ -29,7 +29,7 @@ public ProcedureInfo getProcedureInfoById(CarInfo carInfo);
 public int addProcedureInfo(ProcedureInfo procedureInfo);
 /**
    * 
-   * 删除手续信息的方法
+   * 修改手续信息的方法
    *@return  int
    */
 public int updateProcedureInfo(ProcedureInfo procedureInfo);
