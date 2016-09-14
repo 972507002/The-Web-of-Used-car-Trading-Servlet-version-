@@ -21,13 +21,13 @@ public interface IEmissionstandardService {
            */
 	public boolean addEmissionstandard(Emissionstandard emissionstandard);
 	  /**
-           * 删除排放标准信息的服务
+           * 修改排放标准信息的服务
            * @parma emissionstandard
            * @return boolean
            */
 	public boolean updateEmissionstandard(Emissionstandard emissionstandard);
 	  /**
-           * 修改排放标准信息的服务
+           * 删除排放标准信息的服务
            * @parma emissionstandard
            * @return boolean
            */
