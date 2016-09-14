@@ -21,22 +21,22 @@ public interface IBasicInfoService {
 	public BasicInfo getAllBasicById(CarInfo carInfo);
 /**
  * 添加汽车基本信息的服务
- * @return int
+ * @return boolean
  */
 	public boolean addBasicInfo(BasicInfo basicInfo);
 /**
  * 修改汽车基本信息的服务
- * @return int
+ * @return boolean
  */
 	public boolean updateBasicInfo(BasicInfo basicInfo);
 /**
  * 根据车主编号删除汽车基本信息的服务
- *@return int  
+ *@return boolean  
  */
 	 public boolean deletebasicinfo(BasicInfo b);
 /**
  * 根据车编号删除汽车基本信息的服务
- *@return int  
+ *@return boolean  
  */
 	 public boolean deletecidbasicinfo(BasicInfo b);
 /**
