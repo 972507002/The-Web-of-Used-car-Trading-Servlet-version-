@@ -40,6 +40,6 @@ public interface IPersonNeedService {
 /**
  * 根据用户编号删除个人需求信息的服务
  *@return boolean  
- */;
+ */
 	public boolean deleteUidPerson(PersonNeed personneed);
 }
