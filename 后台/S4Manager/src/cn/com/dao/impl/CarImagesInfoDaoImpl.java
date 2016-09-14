@@ -5,20 +5,27 @@ import java.util.*;
 import cn.com.bean.*;
 import cn.com.dao.*;
 import cn.com.util.*;
-
+/**
+ * 汽车图片信息操作接口
+ * @author lej
+ */
 public class CarImagesInfoDaoImpl implements ICarImagesInfoDao{
 /**
- * ͨ��c_id����ѯ������Ƭ��Ϣ
- */
+   * 根据编号获取汽车照片的方法
+   * @parma carInfo
+   * @return Map<Integer,String>
+   */
 	
 	@Override
 	public Map<Integer, String> getCarImagesInfoByID(CarInfo carInfo ) {
 		// TODO Auto-generated method stub
 		String sql="select * from imagesinfo where c_id=? and u_id=?";
 		Map<Integer, String> imgMap=new HashMap<Integer, String>();
+		//参数绑定
 		List<Object> params=new ArrayList<Object>();
 		params.add(carInfo.getC_id());
 		params.add(carInfo.getU_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next()){
@@ -62,11 +69,16 @@ public class CarImagesInfoDaoImpl implements ICarImagesInfoDao{
 		return imgMap;
 	}
 
-
+/**
+ * 添加照片信息的方法
+ * @parma carImagesInfo
+ *@reutn int 
+ */
 @Override
 public int addCarImagesInfo(CarImagesInfo carImagesInfo) {
 	// TODO Auto-generated method stub
 	String sql="insert into imagesinfo values(?,?,?,?,?,?,?,?,?,?,?,?)";
+	//参数绑定
 	List<Object> params=new ArrayList<Object>();
 	params.add(carImagesInfo.getC_id());
 	params.add(carImagesInfo.getU_id());
@@ -84,12 +96,17 @@ public int addCarImagesInfo(CarImagesInfo carImagesInfo) {
 	return DbUtil.executeUpdate(sql, params);
 }
 
-
+/**
+ *修改照片信息的方法 
+ * @parmas
+ * @return int
+ */
 @Override
 public int updateCarImagesInfo(CarImagesInfo carImagesInfo) {
 	// TODO Auto-generated method stub
 	List<Object> params=new ArrayList<Object>();
 	StringBuffer sql=new StringBuffer("update  imagesinfo set image1=?,image2=?,image3=?,image4=?,image5=?,image6=?,image7=?,image8=?,image9=?,image10=? where u_id=? and c_id=?");
+	//参数绑定
 	params.add(carImagesInfo.getImage1());
 	params.add(carImagesInfo.getImage2());
 	params.add(carImagesInfo.getImage3());
@@ -110,39 +127,54 @@ public int updateCarImagesInfo(CarImagesInfo carImagesInfo) {
 	return DbUtil.executeUpdate(sql.toString(), params);
 }
 
-
+/**
+ * 根据车主编号删除汽车照片信息的方法
+ *@return int  
+ */
 @Override
 public int deleteimagesinfouser(CarImagesInfo c) {
 	// TODO Auto-generated method stub
 	String sql="delete from imagesinfo where u_id=?";
+	//参数绑定
 	List<Object> params=new ArrayList<Object>();
 	params.add(c.getU_id());
 	return DbUtil.executeUpdate(sql, params);
 }
 
-
+/**
+ * 根据车编号删除汽车照片信息的方法
+ *@return int  
+ */
 @Override
 public int deletecidimagesinfouser(CarImagesInfo c) {
 	// TODO Auto-generated method stub
 	String sql="delete from imagesinfo where c_id=?";
+	//参数绑定
 	List<Object> params=new ArrayList<Object>();
 	params.add(c.getC_id());
 	return DbUtil.executeUpdate(sql, params);
 }
 
-
+/**
+ * 
+ * 检查是否还有与某车主编号关联的汽车照片信息
+ * @return boolean
+ */
 @Override
 public boolean checkimageinfouser(CarImagesInfo c) {
 	// TODO Auto-generated method stub
 	boolean flag=false;
 	String sql="select * from imagesinfo where u_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(c.getU_id());
+	//获取结果集
 	ResultSet res=DbUtil.executeQuery(sql, params);
 	try {
 		while(res.next())
 		{
-			flag=true;
+			flag=true;  //若存在结果则返回真
+			break; //跳出循环
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -151,19 +183,26 @@ public boolean checkimageinfouser(CarImagesInfo c) {
 	return flag;
 }
 
-
+/**
+ * 
+ * 检查是否还有与某车编号关联的汽车照片信息
+ * @return boolean
+ */
 @Override
 public boolean checkcidimageinfouser(CarImagesInfo c) {
 	// TODO Auto-generated method stub
 	boolean flag=false;
 	String sql="select * from imagesinfo where c_id=?";
+	//参数绑定
 	List<Object> params=new ArrayList<Object>();
 	params.add(c.getC_id());
+	//获取结果集
 	ResultSet res=DbUtil.executeQuery(sql, params);
 	try {
 		while(res.next())
 		{
-			flag=true;
+			flag=true;  //若存在结果，则返回真
+			break; //跳出循环
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
