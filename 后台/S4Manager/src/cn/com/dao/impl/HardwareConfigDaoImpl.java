@@ -11,32 +11,26 @@ import cn.com.bean.CarInfo;
 import cn.com.bean.HardwareConfig;
 import cn.com.dao.IHardwareConfig;
 import cn.com.util.DbUtil;
-
+/**
+ * 汽车硬件配置信息操作实现类
+ *@author lej 
+ */
 public class HardwareConfigDaoImpl implements IHardwareConfig {
-
+  /**
+   * 
+   * 获取所有汽车硬件配置信息的方法
+   *@return Map<Long,HardwareConfig> 
+   */
 	@Override
 	public Map<Long, HardwareConfig> getAllHardwareConfig() {
 		// TODO Auto-generated method stub
 		String sql = "select * from hardwareconfig";
 		Map<Long, HardwareConfig> hardMap = new HashMap<Long, HardwareConfig>();
+		//获取结果集
 		ResultSet res = DbUtil.executeQuery(sql, null);
 		try {
 			while (res.next()) {
-				// private long u_id;
-				// private long c_id;
-				// private String consoleLceScreen;
-				// private String autoLight;
-				// private String headLights;
-				// private String lightWash;
-				// private String efgv;
-				// private int seatNumber;
-				// private String fuelForm;
-				// private String cvt;
-				// private String drivingMethod;
-				// private String pke;
-				// private String keyLessgo;
-				// private String sunRoof;
-				// private String leatherSeat;
+			
 				HardwareConfig hardwareConfig = new HardwareConfig();
 				hardwareConfig.setU_id(res.getLong("u_id"));
 				hardwareConfig.setC_id(res.getLong("c_id"));
@@ -62,15 +56,21 @@ public class HardwareConfigDaoImpl implements IHardwareConfig {
 		}
 		return hardMap;
 	}
-
+/**
+ * 按编号获取汽车硬件配置信息的方法
+ * @parma carInfo
+ * @return HardwareConfig 
+ */
 	@Override
 	public HardwareConfig getHardwareConfigById(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		HardwareConfig hardwareConfig2 = null;
 		String sql = "select * from hardwareconfig where u_id=? and c_id=?";
+		//绑定参数
 		List<Object> params = new ArrayList<Object>();
 		params.add(carInfo.getU_id());
 		params.add(carInfo.getC_id());
+		//获取结果集
 		ResultSet res = DbUtil.executeQuery(sql, params);
 		try {
 			while (res.next()) {
@@ -99,11 +99,16 @@ public class HardwareConfigDaoImpl implements IHardwareConfig {
 		}
 		return hardwareConfig2;
 	}
-
+/**
+ * 添加汽车硬件配置信息的方法
+ * @parma hardwareConfig
+ * @return int
+ */
 	@Override
 	public int addHardwareConfig(HardwareConfig hardwareConfig) {
 		// TODO Auto-generated method stub
 		String sql = "insert into hardwareconfig values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		//绑定参数
 		List<Object> params = new ArrayList<Object>();
 		params.add(hardwareConfig.getU_id());
 		params.add(hardwareConfig.getC_id());
@@ -123,13 +128,18 @@ public class HardwareConfigDaoImpl implements IHardwareConfig {
 
 		return DbUtil.executeUpdate(sql, params);
 	}
-
+/**
+ * 修改汽车硬件配置信息的方法
+ * @parma hardwareConfig
+ * @return int
+ */
 	@Override
 	public int updateHardwareConfig(HardwareConfig hardwareConfig) {
 		// TODO Auto-generated method stub
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer(
 				"update  hardwareconfig set consoleLcdScreen=?,autoLight=?,headLights=?,lightWash=?,efgv=?,seatNumber=?,fuelForm=?,cvt=?,drivingMethod=?,pke=?,keyLessgo=?,sunRoof=?,leatherSeat=? where u_id=? and c_id=?");
+	    //绑定参数
 		params.add(hardwareConfig.getConsoleLceScreen());
 		params.add(hardwareConfig.getAutoLight());
 		params.add(hardwareConfig.getHeadLights());
@@ -151,37 +161,52 @@ public class HardwareConfigDaoImpl implements IHardwareConfig {
 		return DbUtil.executeUpdate(sql.toString(), params);
 
 	}
-
+/**
+ * 根据车主编号删除汽车硬件配置信息的方法
+ *@return int  
+ */
 	@Override
 	public int deletehardwareconfiguser(HardwareConfig h) {
 		// TODO Auto-generated method stub
 		String sql="delete from hardwareconfig where u_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(h.getU_id());
 		return DbUtil.executeUpdate(sql, params);
 	}
-
+/**
+ * 根据车编号删除汽车硬件配置信息的方法
+ *@return int  
+ */
 	@Override
 	public int deletecidhardwareconfiguser(HardwareConfig h) {
 		// TODO Auto-generated method stub
 		String sql="delete from hardwareconfig where c_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(h.getC_id());
 		return DbUtil.executeUpdate(sql, params);
 	}
-
+/**
+ * 
+ * 检查是否还有与某车主编号关联的汽车硬件配置信息
+ * @return boolean
+ */
 	@Override
 	public boolean checkhardwareconfig(HardwareConfig h) {
 		// TODO Auto-generated method stub
 		boolean flag=false;
 		String sql="select * from hardwareconfig where u_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(h.getU_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next())
 			{
-				flag=true;
+				flag=true;  //若存在，则返回真
+				break;//跳出循环
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -189,19 +214,26 @@ public class HardwareConfigDaoImpl implements IHardwareConfig {
 		}
 		return flag;
 	}
-
+/**
+ * 
+ * 检查是否还有与某车编号关联的汽车硬件配置信息
+ * @return boolean
+ */
 	@Override
 	public boolean checkcidhardwareconfig(HardwareConfig h) {
 		// TODO Auto-generated method stub
 		boolean flag=false;
 		String sql="select * from hardwareconfig where c_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(h.getC_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next())
 			{
-				flag=true;
+				flag=true; //若存在结果集，则返回真
+				break; //跳出循环
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
