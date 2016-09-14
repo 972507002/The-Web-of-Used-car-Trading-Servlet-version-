@@ -19,23 +19,29 @@ import cn.com.service.impl.CommentServiceImpl;
 import cn.com.service.impl.TrendsServiceImpl;
 import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
-
+ /**
+  * 公司动态消息管理引擎
+  * 
+  */
 public class TrendsServlet  extends HttpServlet{
+	//公司动态消息服务实现类的引用
      TrendsServiceImpl trendsServiceImpl=new TrendsServiceImpl();
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		HttpSession session=req.getSession();
 		// TODO Auto-generated method stub
-		req.setCharacterEncoding("utf-8");
-		resp.setCharacterEncoding("utf-8");
-	String op=req.getParameter("op");
+		req.setCharacterEncoding("utf-8"); //设置请求编码
+		resp.setCharacterEncoding("utf-8"); //设置响应编码
+	String op=req.getParameter("op");  //命令操作物
+	  //展示新闻列表
 	if(op.equals("shownewslist")){
 		Trends trends=new Trends();
-		trends.setTr_type("����");
+		trends.setTr_type("新闻");
 		fenye(req, resp, trends);
 		req.getRequestDispatcher("admin/news.jsp").forward(req, resp);
 	}
+	 //展示新闻详情
 	if(op.equals("showtei")){
 	String tr_id=	req.getParameter("tr_id");
 	Trends trends=new Trends();
@@ -44,12 +50,14 @@ public class TrendsServlet  extends HttpServlet{
     req.setAttribute("_trends", _Trends);
     req.getRequestDispatcher("news_show.jsp").forward(req, resp);
 	}
+	 //展示活动列表
 	if(op.equals("showactive")){
 		Trends trends=new Trends();
-		trends.setTr_type("�");
+		trends.setTr_type("活动");
 		fenye(req, resp, trends);
 		req.getRequestDispatcher("admin/active.jsp").forward(req, resp);
 	}
+	//展示活动详情
 	if(op.equals("showteia")){
 		String tr_id=	req.getParameter("tr_id");
 		Trends trends=new Trends();
@@ -58,12 +66,14 @@ public class TrendsServlet  extends HttpServlet{
 	    req.setAttribute("_trends", _Trends);
 	    req.getRequestDispatcher("active_show.jsp").forward(req, resp);
 		}
+		//展示所有动态消息
 	if(op.equals("showalltrends")){
 		Trends trends=new Trends();
 		
 		fenye(req, resp, trends);
 		req.getRequestDispatcher("admin/alltrends.jsp").forward(req, resp);
 	}
+	//添加动态消息
 	if(op.equals("addtrends")){
 		String title=req.getParameter("maxAge");
 		String text=req.getParameter("zm");
@@ -81,11 +91,12 @@ public class TrendsServlet  extends HttpServlet{
 		   trends.setTr_img("tepimages/"+img);
          }
 	   if(trendsServiceImpl.addTrends(trends)){
-		   req.setAttribute("mea", "���ӳɹ�");
+		   req.setAttribute("mea", "添加成功");
 		   req.getRequestDispatcher("admin/alltrend-add.jsp").forward(req, resp);
 	   }
 	    
 	}
+	//请求修改动态消息
 	if(op.equals("uptrends")){
 		String id=req.getParameter("tid");
 		Trends trends=new Trends();
@@ -95,6 +106,7 @@ public class TrendsServlet  extends HttpServlet{
 	session.setAttribute("utrends",trends );
 	resp.sendRedirect("admin/alltrend-up.jsp");
 	}
+	//提交修改动态消息
 	if(op.equals("tjuptrends")){
 		String id=req.getParameter("tid");
 		
@@ -118,10 +130,11 @@ public class TrendsServlet  extends HttpServlet{
          }
 	   if(trendsServiceImpl.updateTrends(trends)){
 		   session.setAttribute("utrends",trends );
-		   session.setAttribute("tmea","�޸ĳɹ�" );
+		   session.setAttribute("tmea","修改成功" );
 			resp.sendRedirect("admin/alltrend-up.jsp");
 	   }
 	}
+	//删除动态消息
 	if(op.equals("deltrends")){
 		String id=req.getParameter("tid");
 		Trends trends=new Trends();
@@ -130,6 +143,7 @@ public class TrendsServlet  extends HttpServlet{
 			resp.getWriter().print(1);
 		}
 	}
+	//添加新闻
 	if(op.equals("addnews")){
 		String title=req.getParameter("maxAge");
 		String text=req.getParameter("zm");
@@ -138,7 +152,7 @@ public class TrendsServlet  extends HttpServlet{
 		Trends trends=new Trends();
 		trends.setTr_title(title);
 		trends.setTr_text(text);
-		trends.setTr_type("����");
+		trends.setTr_type("新闻");
 		DateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    Date date=new Date();
 	   trends.setTr_date(dateFormat.format(date));
@@ -147,10 +161,11 @@ public class TrendsServlet  extends HttpServlet{
 		   trends.setTr_img("tepimages/"+img);
          }
 	   if(trendsServiceImpl.addTrends(trends)){
-		   req.setAttribute("mea", "���ӳɹ�");
+		   req.setAttribute("mea", "添加成功");
 		   req.getRequestDispatcher("admin/allnews-add.jsp").forward(req, resp);
 	   }
 	}
+	//请求修改新闻
 	if(op.equals("upnews")){
 		String id=req.getParameter("tid");
 		Trends trends=new Trends();
@@ -160,6 +175,7 @@ public class TrendsServlet  extends HttpServlet{
 	session.setAttribute("utrends",trends );
 	resp.sendRedirect("admin/allnews-up.jsp");
 	}
+	//提交修改新闻
 	if(op.equals("tjupnews")){
 		String id=req.getParameter("tid");
 		
@@ -170,7 +186,7 @@ public class TrendsServlet  extends HttpServlet{
 		Trends trends=new Trends();
 		trends.setTr_title(title);
 		trends.setTr_text(text);
-		trends.setTr_type("����");
+		trends.setTr_type("新闻");
 		trends.setTr_id(Long.parseLong(id));
 		
 		   trends.setTr_img(req.getParameter("qtp"));
@@ -182,10 +198,11 @@ public class TrendsServlet  extends HttpServlet{
          }
 	   if(trendsServiceImpl.updateTrends(trends)){
 		   session.setAttribute("utrends",trends );
-		   session.setAttribute("tmea","�޸ĳɹ�" );
+		   session.setAttribute("tmea","修改成功" );
 			resp.sendRedirect("admin/allnews-up.jsp");
 	   }
 	}
+	//添加活动
 	if(op.equals("addactive")){
 		String title=req.getParameter("maxAge");
 		String text=req.getParameter("zm");
@@ -194,7 +211,7 @@ public class TrendsServlet  extends HttpServlet{
 		Trends trends=new Trends();
 		trends.setTr_title(title);
 		trends.setTr_text(text);
-		trends.setTr_type("�");
+		trends.setTr_type("活动");
 		DateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    Date date=new Date();
 	   trends.setTr_date(dateFormat.format(date));
@@ -203,10 +220,11 @@ public class TrendsServlet  extends HttpServlet{
 		   trends.setTr_img("tepimages/"+img);
          }
 	   if(trendsServiceImpl.addTrends(trends)){
-		   req.setAttribute("mea", "���ӳɹ�");
+		   req.setAttribute("mea", "添加成功");
 		   req.getRequestDispatcher("admin/active-add.jsp").forward(req, resp);
 	   }
 	}
+	//请求修改活动
 	if(op.equals("upactive")){
 		String id=req.getParameter("tid");
 		Trends trends=new Trends();
@@ -216,6 +234,7 @@ public class TrendsServlet  extends HttpServlet{
 	session.setAttribute("utrends",trends );
 	resp.sendRedirect("admin/active-up.jsp");
 	}
+	//提交修改活动
 	if(op.equals("tjupactive")){
 		String id=req.getParameter("tid");
 		
@@ -226,7 +245,7 @@ public class TrendsServlet  extends HttpServlet{
 		Trends trends=new Trends();
 		trends.setTr_title(title);
 		trends.setTr_text(text);
-		trends.setTr_type("�");
+		trends.setTr_type("活动");
 		trends.setTr_id(Long.parseLong(id));
 		
 		   trends.setTr_img(req.getParameter("qtp"));
@@ -238,15 +257,17 @@ public class TrendsServlet  extends HttpServlet{
          }
 	   if(trendsServiceImpl.updateTrends(trends)){
 		   session.setAttribute("utrends",trends );
-		   session.setAttribute("tmea","�޸ĳɹ�" );
+		   session.setAttribute("tmea","修改成功" );
 			resp.sendRedirect("admin/active-up.jsp");
 	   }
 	}
+	//展示评价
 	if(op.equals("showcom")){
 		Comment comment=new Comment();
 		fenyec(req, resp, comment);
 		req.getRequestDispatcher("admin/comment.jsp").forward(req, resp);
 	}
+	//修改评价
 	if(op.equals("upcom")){
 		String cid=req.getParameter("cid");
 		Comment comment=new Comment();
@@ -257,6 +278,7 @@ public class TrendsServlet  extends HttpServlet{
 		
 		resp.sendRedirect("admin/comment-up.jsp");
 	}
+	//提交修改评价
 	if(op.equals("tjupcom")){
 		String cid=req.getParameter("cid");
 		String bt=req.getParameter("maxAge");
@@ -273,10 +295,11 @@ public class TrendsServlet  extends HttpServlet{
 	   CommentServiceImpl commentServiceImpl=new CommentServiceImpl();
 	   if(commentServiceImpl.updateComment(comment)){
 		   session.setAttribute("ucomment", comment);
-		   session.setAttribute("cmea", "�޸ĳɹ�");
+		   session.setAttribute("cmea", "修改成功");
 			resp.sendRedirect("admin/comment-up.jsp");
 	   }
 	}
+	//删除评价
 	if(op.equals("delcom")){
 		String cid=req.getParameter("cid");
 		Comment comment=new Comment();
@@ -287,7 +310,10 @@ public class TrendsServlet  extends HttpServlet{
 		}
 	}
 	}
-	
+	/**
+	 * 分页展示动态消息的方法
+	 * 
+	 */
 private void fenye(HttpServletRequest req, HttpServletResponse resp,Trends trends){
 		
 		
@@ -300,9 +326,9 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,Trends trend
 		
    
 	 int maxRowsCount=trendsServiceImpl.queryPersonCarCount(trends);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(3, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -335,6 +361,10 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,Trends trend
 		
 		
 	 }
+	 /**
+	  * 分页展示评价的方法
+	  * 
+	  */
 private void fenyec(HttpServletRequest req, HttpServletResponse resp,Comment comment){
 	CommentServiceImpl commentServiceImpl=new CommentServiceImpl();
 	
@@ -347,9 +377,9 @@ private void fenyec(HttpServletRequest req, HttpServletResponse resp,Comment com
 	
 
  int maxRowsCount=commentServiceImpl.queryPersonCarCount(comment);
-	//������ҳ�߼�<=>����
+	//处理分页逻辑<=>调用
 	PageUtil pageUtil=new PageUtil(9, maxRowsCount);
-	// ����ҳ���߼�
+	// 处理页码逻辑
 	if (curPage <= 1) {
 
 		pageUtil.setCurPage(1);
