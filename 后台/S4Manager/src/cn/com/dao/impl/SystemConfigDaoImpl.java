@@ -8,34 +8,24 @@ import cn.com.bean.SystemConfig;
 import cn.com.dao.ISystemConfigDao;
 import cn.com.util.DbUtil;
 
+/**
+ * 
+ * 
+ * 汽车系统配置信息操作实现类
+ * @author lej
+ */
 public class SystemConfigDaoImpl implements ISystemConfigDao{
-	/**
-	 * ��ȡ����ϵͳ��Ϣ
-	 * @return
-	 */
+        /**
+	 * 获取所有系统信息
+	 * @return Map<Long, SystemConfig>
+	 */	
 	@Override
 	public Map<Long, SystemConfig> getAllSystemConfig() {
 		// TODO Auto-generated method stub
-//		 private long u_id;
-//		 private long c_id;
-//		 private String guidanceSystem;
-//		 private String alb;
-//		 private String fpg;
-//		 private String rpg;
-//		 private String rcpa;
-//		 private String dsea;
-//		 private String fsea;
-//		 private String dlcc;
-//		 private String hfs;
-//		 private String hrs;
-//		 private String fsv;
-//		 private String rsv;
-//		 private String fsm;
-//		 private String rsm;
-//		 private String rvmh;
-//		 private String ess;
+
 		Map<Long, SystemConfig> systemConfigMap=new HashMap<Long, SystemConfig>();
 		String sql="select * from systemconfig";
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, null);
 		try {
 			while(res.next()){
@@ -67,16 +57,20 @@ public class SystemConfigDaoImpl implements ISystemConfigDao{
 		return systemConfigMap;
 	}
 /**
- * ͨ����Ż�ȡSystemConfig��Ϣ
+ * 通过Id获取系统销售信息
+ * @param systemConfig
+ * @return SystemConfig
  */
 	@Override
 	public SystemConfig getSystemConfigById(CarInfo carInfo) {
 		// TODO Auto-generated method stub
 		SystemConfig systemConfig2=null;
 		String sql="select * from systemconfig where u_id=? and c_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(carInfo.getU_id());
 		params.add(carInfo.getC_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next()){
@@ -106,10 +100,16 @@ public class SystemConfigDaoImpl implements ISystemConfigDao{
 		}
 		return systemConfig2;
 	}
+/**
+ * 添加汽车系统配置信息的方法
+ * @param systemConfig
+ *@return int 
+ */
 @Override
 public int addSystemConfig(SystemConfig systemConfig) {
 	// TODO Auto-generated method stub
 	String sql="insert into systemconfig values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	//绑定参数
 	List< Object> params=new ArrayList< Object>();
 	params.add(systemConfig.getU_id());
 	params.add( systemConfig.getC_id());
@@ -132,11 +132,17 @@ public int addSystemConfig(SystemConfig systemConfig) {
     
 	return DbUtil.executeUpdate(sql, params);
 }
+/**
+ * 修改汽车系统配置信息的方法
+ * @param systemConfig
+ *@return int 
+ */
 @Override
 public int updateSystemConfig(SystemConfig systemConfig) {
 	// TODO Auto-generated method stub
 	List<Object> params=new ArrayList<Object>();
 	StringBuffer sql=new StringBuffer("update  systemconfig set guidanceSystem=?,alb=?,fpg=?,rpg=?,rcpa=?,dsea=?,fsea=?,dlcc=?,hfs=?,hrs=?,fsv=?,rsv=?,fsm=?,rsm=?,rvmh=?,ess=? where u_id=? and c_id=? ");
+	//绑定参数
 	params.add(systemConfig.getGuidanceSystem());
 	params.add(systemConfig.getAlb());
 	params.add(systemConfig.getFpg());
@@ -153,43 +159,59 @@ public int updateSystemConfig(SystemConfig systemConfig) {
 	params.add(systemConfig.getRsm());
 	params.add(systemConfig.getRvmh());
 	params.add(systemConfig.getEss());
-	
-		params.add(systemConfig.getU_id());
-	
-	
-		params.add(systemConfig.getC_id());
+	params.add(systemConfig.getU_id());
+	params.add(systemConfig.getC_id());
 	
 	return DbUtil.executeUpdate(sql.toString(), params);
 }
+/**
+ * 根据车主编号删除汽车系统配置信息的方法
+ *@return int  
+ */
 @Override
 public int deletesystemconfiguser(SystemConfig s) {
 	// TODO Auto-generated method stub
 	String sql="delete from systemconfig where u_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(s.getU_id());
 	return DbUtil.executeUpdate(sql, params);
 }
+/**
+ * 根据车编号删除汽车系统配置信息的方法
+ *@return int  
+ */
 @Override
 public int deletecidsystemconfiguser(SystemConfig s) {
 	// TODO Auto-generated method stub
 	String sql="delete from systemconfig where c_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(s.getC_id());
 	return DbUtil.executeUpdate(sql, params);
 }
+
+/**
+ * 
+ * 检查是否还有与某车主编号关联的汽车系统配置信息
+ * @return boolean
+ */
 @Override
 public boolean checksystemconfiguser(SystemConfig s) {
 	// TODO Auto-generated method stub
-	// TODO Auto-generated method stub
+	
 			boolean flag=false;
 			String sql="select * from systemconfig where u_id=?";
+			//绑定参数
 			List<Object> params=new ArrayList<Object>();
 			params.add(s.getU_id());
+			//获取结果集
 			ResultSet res=DbUtil.executeQuery(sql, params);
 			try {
 				while(res.next())
 				{
-					flag=true;
+					flag=true; //若结果集存在，则返回为真
+					break;  //跳出当前循环
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -197,18 +219,26 @@ public boolean checksystemconfiguser(SystemConfig s) {
 			}
 			return flag;
 }
+/**
+ * 
+ * 检查是否还有与某车编号关联的汽车系统配置信息
+ * @return boolean
+ */
 @Override
 public boolean checkcidsystemconfiguser(SystemConfig s) {
 	// TODO Auto-generated method stub
 	boolean flag=false;
 	String sql="select * from systemconfig where c_id=?";
+	//绑定参数
 	List<Object> params=new ArrayList<Object>();
 	params.add(s.getC_id());
+	//获取结果集
 	ResultSet res=DbUtil.executeQuery(sql, params);
 	try {
 		while(res.next())
 		{
-			flag=true;
+			flag=true; //若结果集存在，则返回为真
+			break; //跳出循环
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
