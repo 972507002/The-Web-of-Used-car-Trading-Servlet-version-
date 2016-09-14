@@ -4,8 +4,15 @@ import cn.com.util.*;
 import cn.com.dao.*;
 import java.util.*;
 import java.sql.*;
+/**
+ * 车型操作实现类
+ * @author
+ */
 public class CarTypeDaoImpl implements ICarTypeDao,IPageDao {
-
+        /**
+	 * 按热度获取车型信息的方法
+	 * @return Map<Integer,CarType>
+	 */
 	@Override
 	public Map<Integer, CarType> getCarTypeByCount() {
 		// TODO Auto-generated method stub
@@ -13,6 +20,7 @@ public class CarTypeDaoImpl implements ICarTypeDao,IPageDao {
 		 StringBuffer sql= new StringBuffer("select rownum,b.*  from");
 		   sql.append("(select * from cartype order by t_count desc)b ");
 		   sql.append("where rownum<7");
+		   //获取结果集
 		ResultSet res=   DbUtil.executeQuery(sql.toString(), null);
 		try {
 			while(res.next()){
@@ -30,14 +38,17 @@ public class CarTypeDaoImpl implements ICarTypeDao,IPageDao {
 		}
 		   return carTypeMap;
 	}
-
+  	/**
+	 * 获取所有车型信息的方法
+	 * @return  Map<Integer,CarType>
+	 */
 	@Override
 	public Map<Integer, CarType> getAllCarType() {
 		// TODO Auto-generated method stub
 		Map<Integer, CarType> carTypeMap=new HashMap<Integer, CarType>();
 		 StringBuffer sql= new StringBuffer("select * from cartype where 1=1 ");
 		   
-		   
+		   //获取结果集
 		ResultSet res=   DbUtil.executeQuery(sql.toString(), null);
 		try {
 			while(res.next()){
@@ -55,11 +66,15 @@ public class CarTypeDaoImpl implements ICarTypeDao,IPageDao {
 		}
 		   return carTypeMap;
 	}
-
+/**
+ * 添加车型的方法
+ * @return int
+ */
 	@Override
 	public int addCarType(CarType carType) {
 		// TODO Auto-generated method stub
 		String sql="insert into cartype values(seq_type.nextval,?,?,?,?)";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(carType.getT_name());
 		params.add(carType.getT_img());
@@ -67,20 +82,28 @@ public class CarTypeDaoImpl implements ICarTypeDao,IPageDao {
 		params.add(carType.getT_class());
 		return DbUtil.executeUpdate(sql, params);
 	}
-
+/**
+ * 删除车型的方法
+ * @return int
+ */
 	@Override
 	public int deleteCarType(CarType carType) {
 		// TODO Auto-generated method stub
 		String sql="delete from cartype where t_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(carType.getT_id());
 		return DbUtil.executeUpdate(sql, params);
 	}
-
+/**
+ * 修改车型的方法
+ * @return int
+ */
 	@Override
 	public int updateType(CarType carType) {
 		// TODO Auto-generated method stub
 		String sql="update cartype set t_name=?,t_count=?,t_class=? where t_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(carType.getT_name());
 		params.add(carType.getT_count());
@@ -103,7 +126,10 @@ public class CarTypeDaoImpl implements ICarTypeDao,IPageDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+    /**
+     * 获取车型信息的记录总条数
+     * @return int
+     */	
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -123,7 +149,12 @@ int count=0;
 	}
 		return count;
 	}
-
+/**
+ * 分页获取车型信息
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -132,6 +163,7 @@ int count=0;
 		 Map<Long, Object> brandMap=new HashMap<Long, Object>();
 			
 			sql.append(" order by t_count desc ) b  where rownum<=("+curPage+")*("+rowsPrePage+")) where rn>(("+curPage+")-1)*("+rowsPrePage+")");
+			//获取结果集
 			ResultSet res=	 DbUtil.executeQuery(sql.toString(), null);
 			
 		    try {
@@ -150,14 +182,19 @@ int count=0;
 			}
 			return brandMap;
 	}
-
+/**
+ * 获取车型的方法
+ * @return CarType
+ */
 	@Override
 	public CarType getCarType(CarType carType) {
 		// TODO Auto-generated method stub
 		CarType _CarType=null;
 		String sql="select * from cartype where t_id=? ";
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(carType.getT_id());
+		//获取结果集
 		ResultSet res=	 DbUtil.executeQuery(sql.toString(), parmas);
 		
 	    try {
