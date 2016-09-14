@@ -11,37 +11,56 @@ import cn.com.bean.Comment;
 import cn.com.dao.ICommentDao;
 import cn.com.dao.IPageDao;
 import cn.com.util.DbUtil;
-
+/**
+ * 评论操作实现类
+ * @author lej
+ */
 public class CommentDaoImpl implements ICommentDao,IPageDao{
-
+          /**
+           * 添加评论的方法
+           * @parma comment
+           * @return int
+           */
 	@Override
 	public int addComment(Comment comment) {
 		// TODO Auto-generated method stub
 		String sql="insert into comment1 values(?,?,to_date(?,'yyyy-mm-dd HH24:mi:ss'),seq_com.nextval,null,null,null)";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(comment.getUid());
 		params.add(comment.getC_text());
 		params.add(comment.getC_date());
 		
-		return DbUtil.executeUpdate(sql, params);
+		return DbUtil.executeUpdate(sql, params);  
 	}
-
+          /**
+           * 删除评论的方法
+           * @parma comment
+           * @return int
+           */
 	@Override
 	public int deleteComment(Comment comment) {
 		// TODO Auto-generated method stub
 		String sql="delete from comment1 where c_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(comment.getCid());
 		return DbUtil.executeUpdate(sql, params);
 	}
-
+          /**
+           * 获取评论的方法
+           * @parma comment
+           * @return Comment
+           */
 	@Override
 	public Comment getComment(Comment comment) {
 		// TODO Auto-generated method stub
 		Comment _comment=null;
 		String sql="select * from comment1 where c_id=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(comment.getCid());
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql, params);
 	try {
 		while(res.next()){
@@ -61,7 +80,13 @@ public class CommentDaoImpl implements ICommentDao,IPageDao{
 		
 		return _comment;
 	}
-
+          /**
+           * 获取两条最新的评论的方法
+           * @parma comment
+           * @parma min 最小行
+           * @parma max 最大行
+           * @return Map<Long,Comment>
+           */
 	@Override
 	public Map<Long, Comment> getTheTowComment(Comment comment,int min,int max) {
 		// TODO Auto-generated method stub
@@ -71,8 +96,10 @@ public class CommentDaoImpl implements ICommentDao,IPageDao{
 		sql.append("select * from(select rownum rn , b.* from(select  to_char(c_date,'yyyy-mm-dd  HH24:mi:ss') y, a.* from comment1  a ");
 		sql.append("where c_admin=? ");
 		sql.append(" order by c_date desc ) b  where rownum<="+max+") where rn>"+min+"");
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(comment.getC_admin());
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(),parmas );
 	try {
 		while(res.next()){
@@ -107,14 +134,17 @@ public class CommentDaoImpl implements ICommentDao,IPageDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+     /**
+     * 获取评价信息的记录总条数
+     * @return int
+     */	
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
 		int count=0;
 		
 		StringBuffer sql=new StringBuffer("select count(*) from comment1 where 1=1");
-		
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), null);
 	try {
 		while(res.next()){
@@ -126,7 +156,12 @@ public class CommentDaoImpl implements ICommentDao,IPageDao{
 	}
 		return count;
 	}
-
+/**
+ * 分页获取评论信息
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -138,6 +173,7 @@ public class CommentDaoImpl implements ICommentDao,IPageDao{
 
 			
 			sql.append(" order by c_date desc ) b  where rownum<=("+curPage+")*("+rowsPrePage+")) where rn>(("+curPage+")-1)*("+rowsPrePage+")");
+		        //获取结果集
 			ResultSet res=	 DbUtil.executeQuery(sql.toString(), null);
 			
 		    try {
@@ -158,11 +194,16 @@ public class CommentDaoImpl implements ICommentDao,IPageDao{
 			}
 			return trendsMap;
 	}
-
+          /**
+           * 修改评论的方法
+           * @parma comment
+           * @return int
+           */
 	@Override
 	public int updateComment(Comment comment) {
 		// TODO Auto-generated method stub
 		String sql="update comment1 set c_bt=?,c_img=?,c_admin=? where c_id=?" ;
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(comment.getC_bt());
 		parmas.add(comment.getC_img());
