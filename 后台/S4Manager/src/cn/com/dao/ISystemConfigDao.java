@@ -9,7 +9,7 @@ import cn.com.bean.*;
  * 
  * 汽车系统配置信息操作接口
  * @author lej
- * /
+ */
 public interface ISystemConfigDao {
         /**
 	 * 获取所有系统信息
