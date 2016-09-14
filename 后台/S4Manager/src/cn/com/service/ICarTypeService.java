@@ -21,17 +21,17 @@ public interface ICarTypeService {
 	public Map<Integer, CarType> getAllCarType();
 /**
  * 添加车型的服务
- * @return int
+ * @return boolean
  */
 	public boolean addCarType(CarType carType);
 /**
  * 删除车型的服务
- * @return int
+ * @return boolean
  */
 	public boolean deleteCarType(CarType carType);
 /**
  * 修改车型的服务
- * @return int
+ * @return boolean
  */
 	public boolean updateType(CarType carType);
 /**
