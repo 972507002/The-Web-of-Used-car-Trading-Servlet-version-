@@ -6,7 +6,7 @@ import cn.com.bean.*;
 import cn.com.dao.*;
 import cn.com.util.*;
 /**
- * 汽车图片信息操作接口
+ * 汽车图片信息操作实现类
  * @author lej
  */
 public class CarImagesInfoDaoImpl implements ICarImagesInfoDao{
