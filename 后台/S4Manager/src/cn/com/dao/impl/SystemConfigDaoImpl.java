@@ -20,7 +20,7 @@ public class SystemConfigDaoImpl implements ISystemConfigDao{
 	 * @return Map<Long, SystemConfig>
 	 */	
 	@Override
-	public Map<Long, SystemConfig> getAllSystemConfig() {
+	public Map<Long, SystemConfig> getAllSystemConfig() { 
 		// TODO Auto-generated method stub
 
 		Map<Long, SystemConfig> systemConfigMap=new HashMap<Long, SystemConfig>();
