@@ -112,7 +112,12 @@ ResultSet res=		DbUtil.executeQuery(sql.toString(), params);
 		PerSonCar perSonCar=(PerSonCar) object;   //强制转型
 		return getCarCountByWhere(perSonCar);  //调用getCarCountByWhere(perSonCar) 方法
 	}
-
+        /**
+	 * 根据条件分页获取用户订车详情集合
+	 * @param curPage 当前页
+	 * @param rowsPrePage 每页面记录数
+	 * @return Map<Long,Object>
+	 */
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
