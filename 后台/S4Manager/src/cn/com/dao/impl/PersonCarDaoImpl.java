@@ -20,6 +20,7 @@ public class PersonCarDaoImpl implements IPersonCarDao,IPageDao {
 		// TODO Auto-generated method stub
 		int count=0;
 		StringBuffer sql=new StringBuffer("select count(*) from personcar where u_id<>c_uid");
+		//动态绑定参数和延伸sql语句
 		List<Object> params=new ArrayList<Object>();
 		if(perSonCar.getU_id()!=0){
 			sql.append(" and u_id=? ");
@@ -29,6 +30,7 @@ public class PersonCarDaoImpl implements IPersonCarDao,IPageDao {
 			sql.append(" and p_state=?");
 			params.add(perSonCar.getP_state());
 		}
+		//获取结果集
 ResultSet res=		DbUtil.executeQuery(sql.toString(), params);
 		try {
 			while(res.next()){
@@ -50,6 +52,7 @@ ResultSet res=		DbUtil.executeQuery(sql.toString(), params);
 		StringBuffer sql=new StringBuffer("select * from personcar where 1=1");
 		List<Object> params=new ArrayList<Object>();
 		Map<Long, PerSonCar> perSonMap=new HashMap<Long, PerSonCar>();
+		//动态绑定参数和延伸sql语句
 		if(perSonCar.getU_id()!=0){
 			sql.append(" and u_id=? ");
 			params.add(perSonCar.getU_id());
@@ -66,6 +69,7 @@ ResultSet res=		DbUtil.executeQuery(sql.toString(), params);
 			sql.append(" and c_id=? ");
 			params.add(perSonCar.getC_id());
 		}
+		//获取结果集
 	ResultSet res=	 DbUtil.executeQuery(sql.toString(), params);
     try {
 		while(res.next()){
