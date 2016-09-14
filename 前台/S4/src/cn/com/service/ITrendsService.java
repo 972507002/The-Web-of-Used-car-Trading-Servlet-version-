@@ -15,7 +15,7 @@ public interface ITrendsService {
         */
 	public List<Trends> getITrendsByTime(Trends trends,int rows);
        /**
-        * 按编号获取动态消息
+        * 按条件获取动态消息
         * 
         * @return Trends
         */
