@@ -177,7 +177,7 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 	}
 
         /**
-	 * 添加车龄信息的方法
+	 * 添加品牌信息的方法
 	 * @return   int
 	 */
 	@Override
@@ -196,7 +196,7 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 	}
 
          /**
-	 * 修改车龄信息的方法
+	 * 修改品牌信息的方法
 	 * @return   int
 	 */
 	@Override
@@ -214,7 +214,7 @@ public class CarBrandDaoImpl implements ICarBrandDao,IPageDao {
 	}
 
         /**
-	 * 删除车龄信息的方法
+	 * 删除品牌信息的方法
 	 * @return   int
 	 */
 	@Override
