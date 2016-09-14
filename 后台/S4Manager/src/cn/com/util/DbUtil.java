@@ -27,9 +27,9 @@ public class DbUtil {
 		
 			try {
 				DbUtil.closeAll();
-				Context context=new InitialContext();
-			DataSource dataSource=(DataSource)context.lookup("java:comp/env/jdbc/oracle");
-		con=		dataSource.getConnection();
+				Context context=new InitialContext(); //加载连接池配置文件
+			DataSource dataSource=(DataSource)context.lookup("java:comp/env/jdbc/oracle"); //从相应配置文件中加载名为"java:comp/env/jdbc/oracle"的对象
+		con=		dataSource.getConnection(); //获取连接对象
 			} catch (NamingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
