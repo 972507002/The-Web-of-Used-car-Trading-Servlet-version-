@@ -29,7 +29,7 @@ public interface ICarAgeDao {
 	public int updateCarAge(CarAge carAge);
 	/**
 	 * 获取车龄信息的方法
-	 * @return Map<Integer,CarAge>
+	 * @return CarAge
 	 */
 	public CarAge getCarAgeById(CarAge carAge);
 }
