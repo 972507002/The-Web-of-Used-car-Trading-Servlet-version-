@@ -1,36 +1,22 @@
 package cn.com.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import net.sf.json.JSONArray;
-import cn.com.bean.CarAge;
-import cn.com.bean.CarBrand;
-import cn.com.bean.CarType;
-import cn.com.bean.Distance;
-import cn.com.bean.Emissionstandard;
-import cn.com.bean.Model;
-import cn.com.bean.PriceInterval;
-import cn.com.service.ICarBrandService;
-import cn.com.service.IModelService;
-import cn.com.service.impl.CarAgeServiceImpl;
-import cn.com.service.impl.CarBrandServiceImpl;
-import cn.com.service.impl.CarTypeServiceImpl;
-import cn.com.service.impl.DistanceServiceImpl;
-import cn.com.service.impl.EmissionstandardServiceImpl;
-import cn.com.service.impl.ModelServiceImpl;
-import cn.com.service.impl.PriceIntervalServiceImpl;
+import cn.com.bean.*;
+import cn.com.service.*;
+import cn.com.service.impl.*;
 import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
-
+/**
+ * 各项参数管理引擎
+ * 
+ */
 public class ModelServlet extends HttpServlet{
      
 	@Override
@@ -38,8 +24,9 @@ public class ModelServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		IModelService modelService=new ModelServiceImpl();
-		String op=req.getParameter("op");
+		String op=req.getParameter("op");   //操作命令符
 		HttpSession httpSession=req.getSession();
+		//品牌车系二级联动操作
 		if(op.equals("bindModel")){
 			
 		int b_id=Integer.parseInt(req.getParameter("brand"));
@@ -52,9 +39,10 @@ public class ModelServlet extends HttpServlet{
 	   JSONArray jsonArray= JSONArray.fromObject(modelMap);
 	  resp.setContentType("text/html;charset=utf-8");
 	  resp.getWriter().println(jsonArray);
-		resp.getWriter().flush();//��ջ���,ˢ��
+		resp.getWriter().flush();//清空缓存,刷新
 		resp.getWriter().close();
 		}
+		//展示车系详情操作
 		if(op.equals("getDea")){
 			int s_id=Integer.parseInt(req.getParameter("s_id"));
 			Model model=new Model();
@@ -66,14 +54,16 @@ public class ModelServlet extends HttpServlet{
 		   JSONArray jsonArray= JSONArray.fromObject(modelMap);
 		  resp.setContentType("text/html;charset=utf-8");
 		  resp.getWriter().println(jsonArray);
-			resp.getWriter().flush();//��ջ���,ˢ��
+			resp.getWriter().flush();//清空缓存,刷新
 			resp.getWriter().close();
 		}
+		//展示品牌操作
 		if(op.equals("showbrand")){
 	        CarBrand carBrand=new CarBrand();
 	        this.fenye(req, resp, carBrand);
 	        req.getRequestDispatcher("admin/brand.jsp").forward(req, resp);
 		}
+		//展示车龄信息操作
 		if(op.equals("showage")){
 			CarAge carAge=new CarAge();
 			this.fenyeage(req, resp, carAge);
@@ -81,39 +71,45 @@ public class ModelServlet extends HttpServlet{
 	         
 	       
 		}
+		//展示车型信息操作
 		if(op.equals("showtype")){
 			CarType carType=new CarType();
 			this.fenyeety(req, resp, carType);
 			req.getRequestDispatcher("admin/type.jsp").forward(req, resp);
 		}
-		
+		 //展示行驶距离信息操作
 		if(op.equals("showdistance")){
 			Distance distance=new Distance();
 			this.fenyedis(req, resp, distance);
 	        req.getRequestDispatcher("admin/distance.jsp").forward(req, resp);
 		}
+		//展示排放标准操作
 		if(op.equals("showemsi")){
 			 Emissionstandard emissionstandard=new Emissionstandard();
 			 this.fenyeemsi(req, resp, emissionstandard);
 	        req.getRequestDispatcher("admin/emsi.jsp").forward(req, resp);
 		}
+		//展示价格区间操作
 		if(op.equals("showprice")){
 			PriceInterval priceInterval=new PriceInterval();
 			this.fenyeprice(req, resp, priceInterval);
 	        req.getRequestDispatcher("admin/price.jsp").forward(req, resp);
 		}
+		//展示车系操作
 		if(op.equals("showseries")){
 			ICarBrandService brandService=new CarBrandServiceImpl();
 		Map<Integer, CarBrand> brandMap=	brandService.getAllBrand();
 		req.setAttribute("allbrand", brandMap);
 		req.getRequestDispatcher("admin/series.jsp").forward(req, resp);
 		}
+		//请求增加车系操作
 		if(op.equals("addseries")){
 			ICarBrandService brandService=new CarBrandServiceImpl();
 		Map<Integer, CarBrand> brandMap=	brandService.getAllBrand();
 		req.setAttribute("allbrand", brandMap);
 		req.getRequestDispatcher("admin/series-add.jsp").forward(req, resp);
 		}
+		//增加品牌操作
 		if(op.equals("addbrand")){
 			ICarBrandService brandService=new CarBrandServiceImpl();
             String bname=req.getParameter("maxAge");
@@ -133,10 +129,11 @@ public class ModelServlet extends HttpServlet{
               }
             if(brandService.addCarBrand(carBrand)){
             	
-            	req.setAttribute("meag", "���ӳɹ�");
+            	req.setAttribute("meag", "添加成功");
             		req.getRequestDispatcher("admin/brand-add.jsp").forward(req, resp);
             }
 		}
+		//请求修改品牌操作
 		if(op.equals("upbrand")){
 			String bid=req.getParameter("bid");
 			CarBrand brand=new CarBrand();
@@ -148,6 +145,7 @@ public class ModelServlet extends HttpServlet{
 			httpSession.setAttribute("brand", carBrand);
       resp.sendRedirect("admin/brand-up.jsp");
 		}
+		//提交修改品牌
 		if(op.equals("tjupbr")){
 			ICarBrandService brandService=new CarBrandServiceImpl();
 			String bid=req.getParameter("bid");
@@ -171,7 +169,7 @@ public class ModelServlet extends HttpServlet{
               }
             if(brandService.updateCarBrand(carBrand)){
             	
-            	httpSession.setAttribute("upbrand", "�޸ĳɹ�");
+            	httpSession.setAttribute("upbrand", "修改成功");
             	httpSession.setAttribute("brand", carBrand);
             	 resp.sendRedirect("admin/brand-up.jsp");
             }
@@ -185,6 +183,7 @@ public class ModelServlet extends HttpServlet{
 				 resp.getWriter().print(1);
 			 }
 		}
+		//提交增加车系操作
 		if(op.equals("addser")){
 			String bid=req.getParameter("cpp");
 			String sname=req.getParameter("name");
@@ -193,10 +192,11 @@ public class ModelServlet extends HttpServlet{
 			model.setM_name(sname);
 			
 			if(modelService.addModel(model)){
-				req.setAttribute("mea", "���ӳɹ�");
+				req.setAttribute("mea", "添加成功");
 				req.getRequestDispatcher("admin/series-add.jsp").forward(req, resp);
 			}
 		}
+		//请求修改车系操作
 		if(op.equals("upser")){
 			String mid=req.getParameter("mid");
 			Model model=new Model();
@@ -209,6 +209,7 @@ public class ModelServlet extends HttpServlet{
 		req.getRequestDispatcher("admin/series-up.jsp").forward(req, resp);
 			
 		}
+		//提交车系修改
 		if(op.equals("tjupser")){
 			String mid=req.getParameter("mid");
 			String bid=req.getParameter("cpp");
@@ -222,10 +223,11 @@ public class ModelServlet extends HttpServlet{
 				Map<Integer, CarBrand> brandMap=	brandService.getAllBrand();
 				req.setAttribute("allbrand", brandMap);
 				req.setAttribute("model", model);
-				req.setAttribute("mea", "�޸ĳɹ�");
+				req.setAttribute("mea", "修改成功");
 				req.getRequestDispatcher("admin/series-up.jsp").forward(req, resp);
 			}
 		}
+		//删除车系
 		if(op.equals("delser")){
 			String mid=req.getParameter("mid");
 			Model model=new Model();
@@ -234,6 +236,7 @@ public class ModelServlet extends HttpServlet{
 				 resp.getWriter().print(1);
 			}
 		}
+		//增加车龄信息
 		if(op.equals("addage")){
 			String aname=req.getParameter("cAge");
 			String acount=req.getParameter("count");
@@ -245,10 +248,11 @@ public class ModelServlet extends HttpServlet{
 	              }
 			 CarAgeServiceImpl ageServiceImpl=new CarAgeServiceImpl();
 			 if(ageServiceImpl.addCarAge(carAge)){
-				 req.setAttribute("mea", "���ӳɹ�");
+				 req.setAttribute("mea", "添加成功");
 					req.getRequestDispatcher("admin/age-add.jsp").forward(req, resp);
 			 }
 		}
+		//请求修改车龄信息
 		if(op.equals("upage")){
 			String a_id=req.getParameter("aid");
 			CarAge carAge=new CarAge();
@@ -258,6 +262,7 @@ public class ModelServlet extends HttpServlet{
 		req.setAttribute("age", age);
 		req.getRequestDispatcher("admin/age-up.jsp").forward(req, resp);
 		}
+		//提交修改车龄信息
 		if(op.equals("tjupage")){
 			String aname=req.getParameter("cAge");
 			String acount=req.getParameter("count");
@@ -273,12 +278,13 @@ public class ModelServlet extends HttpServlet{
 
 				if(ageServiceImpl.updateCarAge(carAge)){
 					req.setAttribute("age", carAge);
-					req.setAttribute("mea", "�޸ĳɹ�");
+					req.setAttribute("mea", "修改成功");
 					req.getRequestDispatcher("admin/age-up.jsp").forward(req, resp);
 				
 				}
 			 
 		}
+		//删除车龄信息
 		if(op.equals("delage")){
 			String aid=req.getParameter("aid");
 			CarAge carAge=new CarAge();
@@ -289,6 +295,7 @@ public class ModelServlet extends HttpServlet{
 				 resp.getWriter().print(1);
 			}
 		}
+		//增加价格区间信息
 		if(op.equals("addprice")){
 			String aname=req.getParameter("cAge");
 			String acount=req.getParameter("count");
@@ -300,10 +307,11 @@ public class ModelServlet extends HttpServlet{
 	              }
 			 PriceIntervalServiceImpl intervalServiceImpl=new PriceIntervalServiceImpl();
 			 if(intervalServiceImpl.addPriceInterval(priceInterval)){
-				 req.setAttribute("mea", "���ӳɹ�");
+				 req.setAttribute("mea", "添加成功");
 					req.getRequestDispatcher("admin/price-add.jsp").forward(req, resp);
 			 }
 		}
+		//请求修改价格区间信息
 		if(op.equals("upprice")){
 			String pid=req.getParameter("pid");
 			PriceInterval priceInterval=new PriceInterval();
@@ -315,6 +323,7 @@ public class ModelServlet extends HttpServlet{
 		req.getRequestDispatcher("admin/price-up.jsp").forward(req, resp);
 		
 		}
+		//提交修改价格区间
 		if(op.equals("tjupprice")){
 			String pid=req.getParameter("pid");
 			String aname=req.getParameter("cAge");
@@ -328,11 +337,12 @@ public class ModelServlet extends HttpServlet{
 	              }
 			 PriceIntervalServiceImpl intervalServiceImpl=new PriceIntervalServiceImpl();
        if(intervalServiceImpl.updatePriceInterval(priceInterval)){
-    	   req.setAttribute("mea", "�޸ĳɹ�");
+    	   req.setAttribute("mea", "修改成功");
     	   req.setAttribute("price", priceInterval);
 			req.getRequestDispatcher("admin/price-up.jsp").forward(req, resp);
        }
 		}
+		//删除价格区间
 		if(op.equals("delprice")){
 			String pid=req.getParameter("pid");
 			PriceInterval priceInterval=new PriceInterval();
@@ -343,6 +353,7 @@ public class ModelServlet extends HttpServlet{
    }
 		 
 		}
+		//添加行驶距离
 		if(op.equals("adddis")){
 			String aname=req.getParameter("cAge");
 			String acount=req.getParameter("count");
@@ -354,10 +365,11 @@ public class ModelServlet extends HttpServlet{
 	              }
 			 DistanceServiceImpl distanceServiceImpl=new DistanceServiceImpl();
 			 if(distanceServiceImpl.addDistance(distance)){
-				 req.setAttribute("mea", "���ӳɹ�");
+				 req.setAttribute("mea", "添加成功");
 				 req.getRequestDispatcher("admin/distance-add.jsp").forward(req, resp);
 			 }
 		}
+		//请求修改行驶距离
 		if(op.equals("updis")){
 			String did=req.getParameter("did");
 			Distance distance=new Distance();
@@ -367,6 +379,7 @@ public class ModelServlet extends HttpServlet{
 		  req.setAttribute("distance", dis);
 		  req.getRequestDispatcher("admin/distance-up.jsp").forward(req, resp);
 		}
+		//提交修改行驶距离
 		if(op.equals("tjupdis")){
 			String aname=req.getParameter("cAge");
 			String acount=req.getParameter("count");
@@ -380,11 +393,12 @@ public class ModelServlet extends HttpServlet{
 	              }
 			 DistanceServiceImpl distanceServiceImpl=new DistanceServiceImpl();
 			 if(distanceServiceImpl.updateDistance(distance)){
-				 req.setAttribute("mea", "�޸ĳɹ�");
+				 req.setAttribute("mea", "修改成功");
 				 req.setAttribute("distance", distance);
 				 req.getRequestDispatcher("admin/distance-up.jsp").forward(req, resp);
 			 }
 		}
+		//删除行驶距离
 		if(op.equals("deldis")){
 			String did=req.getParameter("did");
 			Distance distance=new Distance();
@@ -395,6 +409,7 @@ public class ModelServlet extends HttpServlet{
 				 resp.getWriter().print(1);
 			 }
 		}
+		//添加排放标准
 		if(op.equals("addemsi")){
 			String name=req.getParameter("name");
 			String acount=req.getParameter("count");
@@ -406,10 +421,11 @@ public class ModelServlet extends HttpServlet{
 	              }
 			 EmissionstandardServiceImpl emissionstandardServiceImpl=new EmissionstandardServiceImpl();
 			 if(emissionstandardServiceImpl.addEmissionstandard(emissionstandard)){
-				 req.setAttribute("mea", "���ӳɹ�");
+				 req.setAttribute("mea", "添加成功");
 				 req.getRequestDispatcher("admin/emsi-add.jsp").forward(req, resp);
 			 }
 		}
+		//请求修改排放标准
 		if(op.equals("upemsi")){
 			String eid=req.getParameter("eid");
 			Emissionstandard emissionstandard=new Emissionstandard();
@@ -419,6 +435,7 @@ public class ModelServlet extends HttpServlet{
 		req.setAttribute("emsi", emsi);
 		req.getRequestDispatcher("admin/emsi-up.jsp").forward(req, resp);
 		}
+		//提交排放标准修改
 		if(op.equals("tjemsi")){
 			String eid=req.getParameter("eid");
 			String name=req.getParameter("name");
@@ -432,11 +449,12 @@ public class ModelServlet extends HttpServlet{
 	              }
 			 EmissionstandardServiceImpl emissionstandardServiceImpl=new EmissionstandardServiceImpl();
 		if(emissionstandardServiceImpl.updateEmissionstandard(emissionstandard)){
-			req.setAttribute("mea", "�޸ĳɹ�");
+			req.setAttribute("mea", "修改成功");
 			req.setAttribute("emsi", emissionstandard);
 			req.getRequestDispatcher("admin/emsi-up.jsp").forward(req, resp);
 		}
 		}
+		//删除排放标准
 		if(op.equals("delemsi")){
 			String eid=req.getParameter("eid");
 			Emissionstandard emissionstandard=new Emissionstandard();
@@ -446,6 +464,7 @@ public class ModelServlet extends HttpServlet{
         	   resp.getWriter().print(1);
            }
 		}
+		//添加车型
 		if(op.equals("addtype")){
 			 String bname=req.getParameter("maxAge");
 	            String bcount=req.getParameter("count");
@@ -463,11 +482,12 @@ public class ModelServlet extends HttpServlet{
 	             }
 	             CarTypeServiceImpl carTypeServiceImpl=new CarTypeServiceImpl();
 	           if(  carTypeServiceImpl.addCarType(carType)){
-	        	   req.setAttribute("mea", "���ӳɹ�");
+	        	   req.setAttribute("mea", "添加成功");
 	        	   req.getRequestDispatcher("admin/type-add.jsp").forward(req, resp);
 	           }
 	            
 		}
+		//请求修改车型
 		if(op.equals("uptype")){
 		   String tid=req.getParameter("tid");
 		   CarType carType=new CarType();
@@ -477,6 +497,7 @@ public class ModelServlet extends HttpServlet{
 		  httpSession.setAttribute("upcartype", _cartype);
 		  resp.sendRedirect("admin/type-up.jsp");
 		}
+		//提交修改车型
 		if(op.equals("tjuptype")){
 			 String tid=req.getParameter("tid");
 			 String bname=req.getParameter("maxAge");
@@ -497,10 +518,11 @@ public class ModelServlet extends HttpServlet{
 			   CarTypeServiceImpl carTypeServiceImpl=new CarTypeServiceImpl();
 			   if(carTypeServiceImpl.updateType(carType)){
 				   httpSession.setAttribute("upcartype", carType);
-				   httpSession.setAttribute("upbrand", "�޸ĳɹ�");
+				   httpSession.setAttribute("upbrand", "修改成功");
 				   resp.sendRedirect("admin/type-up.jsp");
 			   }
 		}
+		//删除车型
 		if(op.equals("deltype")){
 			 String tid=req.getParameter("tid");
 			 CarType carType=new CarType();
@@ -512,6 +534,10 @@ public class ModelServlet extends HttpServlet{
 			   
 		}
 	}
+	/**
+	 * 分页展示品牌的方法
+	 * 
+	 */
 private void fenye(HttpServletRequest req, HttpServletResponse resp,CarBrand carBrand){
 		
 	 CarBrandServiceImpl brandServiceImpl=new CarBrandServiceImpl();
@@ -524,9 +550,9 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,CarBrand car
 		
    
 	 int maxRowsCount=brandServiceImpl.queryPersonCarCount(carBrand);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(8, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -560,6 +586,10 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,CarBrand car
 		
 		
 	 }
+	 /**
+	 * 分页展示车龄的方法
+	 * 
+	 */
 private void fenyeage(HttpServletRequest req, HttpServletResponse resp,CarAge carAge){
 	
 	CarAgeServiceImpl ageServiceImpl=new CarAgeServiceImpl();
@@ -572,9 +602,9 @@ private void fenyeage(HttpServletRequest req, HttpServletResponse resp,CarAge ca
 		
   
 	 int maxRowsCount=ageServiceImpl.queryPersonCarCount(carAge);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(8, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -608,6 +638,10 @@ private void fenyeage(HttpServletRequest req, HttpServletResponse resp,CarAge ca
 		
 		
 	 }
+	 /**
+	 * 分页展示价格区间的方法
+	 * 
+	 */
 private void fenyeprice(HttpServletRequest req, HttpServletResponse resp,PriceInterval priceInterval){
 	
 	 PriceIntervalServiceImpl ageServiceImpl=new PriceIntervalServiceImpl();
@@ -620,9 +654,9 @@ private void fenyeprice(HttpServletRequest req, HttpServletResponse resp,PriceIn
 		
   
 	 int maxRowsCount=ageServiceImpl.queryPersonCarCount(priceInterval);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(8, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -656,6 +690,10 @@ private void fenyeprice(HttpServletRequest req, HttpServletResponse resp,PriceIn
 		
 		
 	 }
+	 /**
+	 * 分页展示行驶距离的方法
+	 * 
+	 */
 private void fenyedis(HttpServletRequest req, HttpServletResponse resp,Distance distance){
 	
 	 DistanceServiceImpl ageServiceImpl=new DistanceServiceImpl();
@@ -668,9 +706,9 @@ private void fenyedis(HttpServletRequest req, HttpServletResponse resp,Distance 
 		
  
 	 int maxRowsCount=ageServiceImpl.queryPersonCarCount(distance);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(8, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -704,6 +742,10 @@ private void fenyedis(HttpServletRequest req, HttpServletResponse resp,Distance 
 		
 		
 	 }
+	 /**
+	 * 分页展示排放标准的方法
+	 * 
+	 */
 private void fenyeemsi(HttpServletRequest req, HttpServletResponse resp,Emissionstandard emissionstandard){
 	
 	 EmissionstandardServiceImpl ageServiceImpl=new EmissionstandardServiceImpl();
@@ -716,9 +758,9 @@ private void fenyeemsi(HttpServletRequest req, HttpServletResponse resp,Emission
 		
 
 	 int maxRowsCount=ageServiceImpl.queryPersonCarCount(emissionstandard);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(8, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -752,6 +794,10 @@ private void fenyeemsi(HttpServletRequest req, HttpServletResponse resp,Emission
 		
 		
 	 }
+	 /**
+	 * 分页展示车型的方法
+	 * 
+	 */
 private void fenyeety(HttpServletRequest req, HttpServletResponse resp,CarType carType){
 	
 	 CarTypeServiceImpl ageServiceImpl=new CarTypeServiceImpl();
@@ -764,9 +810,9 @@ private void fenyeety(HttpServletRequest req, HttpServletResponse resp,CarType c
 		
 
 	 int maxRowsCount=ageServiceImpl.queryPersonCarCount(carType);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(8, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
