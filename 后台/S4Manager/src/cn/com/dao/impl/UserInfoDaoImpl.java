@@ -5,17 +5,26 @@ import java.util.*;
 import cn.com.bean.*;
 import cn.com.dao.*;
 import cn.com.util.*;
+/**
+ * 用户信息操作实现类
+ * @author
+ */
 public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
-
+  /**
+   * 登录的方法
+   * @return UserInfo
+   */
 	@Override
 	public UserInfo login(UserInfo userInfo) {
 		// TODO Auto-generated method stub
 		UserInfo _userInfo=null;
 		StringBuffer sql=new StringBuffer("select * from userinfo3 ");
 		sql.append("where u_tel=? and u_pwd=?");
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(userInfo.getU_tel());
 		parmas.add(userInfo.getU_pwd());
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), parmas);
 	try {
 		while(res.next()){
@@ -39,13 +48,17 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 	}
 		return _userInfo;
 	}
-
+  /**
+   * 按唯一条件获取用户信息的方法
+   *@return UserInfo 
+   */
 	@Override
 	public UserInfo getUserInfoByUnique(UserInfo userInfo) {
 		// TODO Auto-generated method stub
 		UserInfo _userInfo=null;
 		StringBuffer sql=new StringBuffer("select * from userinfo3 ");
 		sql.append("where 1=1 ");
+		//动态绑定参数并延伸sql语句
 		List<Object> parmas=new ArrayList<Object>();
 	  if(userInfo.getU_tel()!=0){
 		  sql.append(" and u_tel=? ");
@@ -55,6 +68,7 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		  sql.append(" and u_id=? ");
 		  parmas.add(userInfo.getU_id());
 	  }
+	  //获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), parmas);
 	try {
 		while(res.next()){
@@ -79,11 +93,15 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 	}
 		return _userInfo;
 	}
-
+  /**
+   * 添加用户信息的方法
+   *@return int 
+   */
 	@Override
 	public int addUserInfo(UserInfo userInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("insert into userinfo3(u_id,u_tel,u_name,u_pwd,u_sex,u_admin) values(seq_userinfo3.nextval,?,?,?,?,?)");
+		//绑定参数
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(userInfo.getU_tel());
 		parmas.add(userInfo.getU_name());
@@ -93,12 +111,16 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		
 		return DbUtil.executeUpdate(sql.toString(), parmas);
 	}
-
+  /**
+   * 修改用户信息的方法
+   *@return int 
+   */
 	@Override
 	public int updateUserInfo(UserInfo userInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("update  userinfo3 set u_id=? ");
 		List<Object> params=new ArrayList<Object>();
+		//动态绑定参数和延伸sql语句
 		params.add(userInfo.getU_id());
 		if(userInfo.getU_name()!=null){
 			sql.append(" , u_name=?");
@@ -130,11 +152,15 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		
 		return DbUtil.executeUpdate(sql.toString(), params);
 	}
-
+  /**
+   * 修改用户密码的方法
+   *@return int 
+   */
 	@Override
 	public int updateUserPwd(UserInfo userInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql=new StringBuffer("update userinfo3 set u_pwd=? where u_id=?");
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(userInfo.getU_pwd());
 		params.add(userInfo.getU_id());
@@ -155,7 +181,10 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+    /**
+     * 按条件获取用户信息的记录总条数
+     * @return int
+     */	
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -163,10 +192,12 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		UserInfo userInfo=(UserInfo) object;
 		List<Object> parmas=new ArrayList<Object>();
 		StringBuffer sql=new StringBuffer("select count(*) from userinfo3 where 1=1");
+			//动态绑定参数和延伸sql语句
 		if(userInfo.getU_admin()!=null){
 			sql.append(" and u_admin=?");
 			parmas.add(userInfo.getU_admin());
 		}
+		//获取结果集
 	ResultSet res=	DbUtil.executeQuery(sql.toString(), parmas);
 	try {
 		while(res.next()){
@@ -178,7 +209,12 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 	}
 		return count;
 	}
-
+/**
+ * 按条件分页获取用户信息
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -187,12 +223,13 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 		 StringBuffer sql=new StringBuffer("select * from(select rownum rn , b.* from(select  a.* from userinfo3  a  where 1=1");
 		 Map<Long, Object> userMap=new HashMap<Long, Object>();
 			List<Object> params=new ArrayList<Object>();
-
+                   	//动态绑定参数和延伸sql语句
 			if(userInfo.getU_admin()!=null){
 				sql.append(" and u_admin=?");
 				params.add(userInfo.getU_admin());
 			}
 			sql.append("  ) b  where rownum<=("+curPage+")*("+rowsPrePage+")) where rn>(("+curPage+")-1)*("+rowsPrePage+")");
+			//获取结果集
 			ResultSet res=	 DbUtil.executeQuery(sql.toString(), params);
 			
 		    try {
@@ -217,11 +254,15 @@ public class UserInfoDaoImpl implements IUserInfoDao ,IPageDao {
 			}
 			return userMap;
 	}
-
+ /**
+   * 删除用户信息的方法
+   *@return int 
+   */
 	@Override
 	public int deleteuserinfouser(UserInfo u) {
 		// TODO Auto-generated method stub
 		String sql="delete from userinfo3 where U_ID=?";
+		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(u.getU_id());
 		int count=DbUtil.executeUpdate(sql, params);
