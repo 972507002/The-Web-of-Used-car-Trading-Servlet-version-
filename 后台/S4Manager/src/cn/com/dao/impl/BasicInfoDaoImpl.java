@@ -19,9 +19,10 @@ public class BasicInfoDaoImpl implements IBasicInfoDao{
 		// TODO Auto-generated method stub
 		Map<Long, BasicInfo> mapBasicInfo=new HashMap<Long, BasicInfo>();
 		String sql="select to_char(aidd,'yyyy-mm') ai,to_char(srdt,'yyyy-mm') sr ,to_char(domf,'yyyy-mm') do, a.* from basicinfo a";
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, null);
 		try {
-			while(res.next()){
+			while(res.next()){ 
 				BasicInfo basicInfo=new BasicInfo();
 				basicInfo.setC_id(res.getLong("c_id"));
 				basicInfo.setU_id(res.getLong("u_id"));
@@ -55,6 +56,7 @@ public class BasicInfoDaoImpl implements IBasicInfoDao{
 		List<Object> params=new ArrayList<Object>();
 		params.add(carInfo.getU_id());
 		params.add(carInfo.getC_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next()){
@@ -164,6 +166,7 @@ public class BasicInfoDaoImpl implements IBasicInfoDao{
 		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(b.getU_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next())
@@ -191,6 +194,7 @@ public class BasicInfoDaoImpl implements IBasicInfoDao{
 		//绑定参数
 		List<Object> params=new ArrayList<Object>();
 		params.add(b.getC_id());
+		//获取结果集
 		ResultSet res=DbUtil.executeQuery(sql, params);
 		try {
 			while(res.next())
