@@ -19,23 +19,23 @@ public interface ICarImagesInfoService {
 /**
  * 添加照片信息的服务
  * @parma carImagesInfo
- *@reutn int 
+ *@reutn boolean 
  */
 	public boolean addCarImagesInfo(CarImagesInfo carImagesInfo);
 /**
  *修改照片信息的服务
  * @parmas
- * @return int
+ * @return boolean
  */
 	public boolean updateCarImagesInfo(CarImagesInfo carImagesInfo);
 /**
  * 根据车主编号删除汽车照片信息的服务
- *@return int  
+ *@return boolean  
  */
 	 public boolean deleteimagesinfouser(CarImagesInfo c);
 /**
  * 根据车编号删除汽车照片信息的服务
- *@return int  
+ *@return boolean  
  */
 	 public boolean deletecidimagesinfouser(CarImagesInfo c);
 /**
