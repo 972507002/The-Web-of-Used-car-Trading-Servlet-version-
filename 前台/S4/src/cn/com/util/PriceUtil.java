@@ -4,8 +4,8 @@ package cn.com.util;
  *@author lej
  */
 public class PriceUtil {
- private int minPrice=0;
- private int maxPrice=0;
+ private int minPrice=0; //最小价格
+ private int maxPrice=0; //最大价格
 public int getMinPrice() {
 	return minPrice;
 }
@@ -18,6 +18,10 @@ public int getMaxPrice() {
 public void setMaxPrice(int maxPrice) {
 	this.maxPrice = maxPrice;
 }
+/**
+ * 构造函数处理传递的价格区间
+ * 
+ */
 public PriceUtil(String price){
 	if(price.contains("以内")){
 		String [] s=price.split("万");
