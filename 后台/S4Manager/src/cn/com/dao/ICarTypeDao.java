@@ -31,7 +31,8 @@ public interface ICarTypeDao {
  * 修改车型的方法
  * @return int
  */
-	public int updateType(CarType carType);、/**
+	public int updateType(CarType carType);
+/**
  * 获取车型的方法
  * @return CarType
  */
