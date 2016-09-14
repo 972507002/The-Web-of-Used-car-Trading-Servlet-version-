@@ -11,6 +11,7 @@ import cn.com.service.*;
  *@author  lej 
  */
 public class CarAgeServiceImpl implements ICarAgeService,IPageDao {
+	//车辆信息操作实现类的引用
   private CarAgeDaoImpl carAgeDao=new CarAgeDaoImpl();
 	/**
 	 * 按热度获取车龄信息的服务
