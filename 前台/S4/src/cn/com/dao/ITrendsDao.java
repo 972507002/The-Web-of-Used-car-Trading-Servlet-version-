@@ -16,7 +16,6 @@ public interface ITrendsDao {
        public List<Trends>  getITrendsByTime(Trends trends,int rows);
            /**
         * 按条件获取动态消息
-       
         * @return Trends 
         */
        public Trends getTrendsByWhere(Trends trends);
