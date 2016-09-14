@@ -65,11 +65,21 @@ private PersonNeedDaoImpl personNeedDao=new PersonNeedDaoImpl();
 		// TODO Auto-generated method stub
 		return null;
 	}
+    /**
+     * 获取符合条件的个人需求信息的记录总条数
+     * @return int
+     */	
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
 		return personNeedDao.queryPersonCarCount(object);
 	}
+/**
+ * 分页获取符合条件的个人需求信息
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -100,6 +110,10 @@ private PersonNeedDaoImpl personNeedDao=new PersonNeedDaoImpl();
 		// TODO Auto-generated method stub
 		return personNeedDao.chekUidPerson(personneed);
 	}
+/**
+ * 根据用户编号删除个人需求信息的服务
+ *@return boolean  
+ */
 	@Override
 	public boolean deleteUidPerson(PersonNeed personneed) {
 		// TODO Auto-generated method stub
