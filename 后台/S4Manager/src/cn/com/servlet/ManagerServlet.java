@@ -16,37 +16,45 @@ import cn.com.service.impl.PersonNeedServiceImpl;
 import cn.com.service.impl.UserInfoServiceImpl;
 import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
-
+/**
+ * 管理用户操作引擎
+ * 
+ */
 public class ManagerServlet extends HttpServlet {
+	//用户信息服务实现类的引用
          UserInfoServiceImpl userInfoServiceImpl=new UserInfoServiceImpl();
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session=req.getSession();
-		req.setCharacterEncoding("utf-8");
-		resp.setCharacterEncoding("utf-8");
-	String op=req.getParameter("op");
+		req.setCharacterEncoding("utf-8"); //设置请求编码
+		resp.setCharacterEncoding("utf-8"); //设置响应编码
+	String op=req.getParameter("op"); //命令操作符
+	   //展示所有用户的操作
 	if(op.equals("showalluser")){
 		UserInfo userInfo=new UserInfo();
 		fenye(req, resp, userInfo);
-		req.setAttribute("titile", "�����û�");
+		req.setAttribute("titile", "所有用户");
 		req.getRequestDispatcher("admin/user.jsp").forward(req, resp);
 	}
+	//展示管理员的操作
 	if(op.equals("showadmin")){
 		UserInfo userInfo=new UserInfo();
-		userInfo.setU_admin("����Ա");
+		userInfo.setU_admin("管理员");
 		fenye(req, resp, userInfo);
-		req.setAttribute("titile", "����Ա");
+		req.setAttribute("titile", "管理员");
 		req.getRequestDispatcher("admin/admin.jsp").forward(req, resp);
 	}
+	//展示普通用户的操作
 	if(op.equals("showuser")){
 		UserInfo userInfo=new UserInfo();
-		userInfo.setU_admin("��ͨ�û�");
+		userInfo.setU_admin("普通用户");
 		fenye(req, resp, userInfo);
-		req.setAttribute("titile", "��ͨ�û�");
+		req.setAttribute("titile", "普通用户");
 		req.getRequestDispatcher("admin/putong.jsp").forward(req, resp);
 	}
+	//展示用户个人需求的操作
 	if(op.equals("showsrdz")){
 		PersonNeed personNeed=new PersonNeed();
 		
@@ -55,17 +63,19 @@ public class ManagerServlet extends HttpServlet {
 		req.getRequestDispatcher("admin/srdz.jsp").forward(req, resp);
 		
 	}
+	//展示处理中的用户个人需求
 	if(op.equals("showclzsrdz")){
 		PersonNeed personNeed=new PersonNeed();
-		personNeed.setP_state("������");
+		personNeed.setP_state("处理中");
 		this.fenyepn(req, resp, personNeed);
 		DbUtil.closeAll();
 		req.getRequestDispatcher("admin/clz.jsp").forward(req, resp);
 		
 	}
+	//展示已处理用户个人需求
 	if(op.equals("showyclsrdz")){
 		PersonNeed personNeed=new PersonNeed();
-		personNeed.setP_state("�Ѵ���");
+		personNeed.setP_state("已处理");
 		this.fenyepn(req, resp, personNeed);
 		DbUtil.closeAll();
 		req.getRequestDispatcher("admin/ycl.jsp").forward(req, resp);
@@ -73,6 +83,10 @@ public class ManagerServlet extends HttpServlet {
 	}
 	
 	}
+	/**
+	 * 分页展示用户信息的方法
+	 * 
+	 */
 private void fenye(HttpServletRequest req, HttpServletResponse resp,UserInfo userInfo){
 		
 		
@@ -85,9 +99,9 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,UserInfo use
 		
    
 	 int maxRowsCount=userInfoServiceImpl.queryPersonCarCount(userInfo);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(6, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -120,6 +134,11 @@ private void fenye(HttpServletRequest req, HttpServletResponse resp,UserInfo use
 		
 		
 	 }
+	 /**
+	  * 分页展示用户需求的方法
+	  * 
+	  * 
+	  */
 private void fenyepn(HttpServletRequest req, HttpServletResponse resp,PersonNeed personNeed){
 	PersonNeedServiceImpl personNeedServiceImpl=new PersonNeedServiceImpl();
 	
@@ -132,9 +151,9 @@ private void fenyepn(HttpServletRequest req, HttpServletResponse resp,PersonNeed
 	
 
  int maxRowsCount=personNeedServiceImpl.queryPersonCarCount(personNeed);
-	//������ҳ�߼�<=>����
+	//处理分页逻辑<=>调用
 	PageUtil pageUtil=new PageUtil(4, maxRowsCount);
-	// ����ҳ���߼�
+	// 处理页码逻辑
 	if (curPage <= 1) {
 
 		pageUtil.setCurPage(1);
