@@ -19,7 +19,7 @@ public Map<Long, SystemConfig> getAllSystemConfig();
 /**
  * 通过Id获取系统销售信息
  * @param systemConfig
- * @return carInfo
+ * @return SystemConfig
  */
 public SystemConfig getSystemConfigById(CarInfo carInfo);
 /**
