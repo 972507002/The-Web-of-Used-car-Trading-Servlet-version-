@@ -1,40 +1,21 @@
 package cn.com.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import cn.com.bean.BasicInfo;
-import cn.com.bean.CarImagesInfo;
-import cn.com.bean.CarInfo;
-import cn.com.bean.HardwareConfig;
-import cn.com.bean.PerSonCar;
-import cn.com.bean.ProcedureInfo;
-import cn.com.bean.SellInfo;
-import cn.com.bean.SystemConfig;
-import cn.com.service.impl.BasicInfoServiceImpl;
-import cn.com.service.impl.CarBrandServiceImpl;
-import cn.com.service.impl.CarImagesInfoServiceImpl;
-import cn.com.service.impl.CarInfoServiceImpl;
-import cn.com.service.impl.HardwareConfigServiceImpl;
-import cn.com.service.impl.PersonCarServiceImpl;
-import cn.com.service.impl.ProcedureInfoServiceImpl;
-import cn.com.service.impl.SellInfoServiceImpl;
-import cn.com.service.impl.SystemConfigServiceImpl;
-import cn.com.util.CarAgeUtil;
-import cn.com.util.DbUtil;
-import cn.com.util.DistanceUtil;
-import cn.com.util.PageUtil;
-import cn.com.util.PriceUtil;
-
+import cn.com.bean.*;
+import cn.com.service.impl.*;
+import cn.com.util.*;
+/**
+ * 汽车管理引擎
+ * 
+ */
 public class MgCarInfoServlet extends HttpServlet{
   CarInfoServiceImpl carInfoService=new CarInfoServiceImpl();
 	@Override
@@ -42,9 +23,10 @@ public class MgCarInfoServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session=req.getSession();
-		req.setCharacterEncoding("utf-8");
-		resp.setCharacterEncoding("utf-8");
-		String op=req.getParameter("op");
+		req.setCharacterEncoding("utf-8"); //设置请求编码
+		resp.setCharacterEncoding("utf-8"); //设置响应编码
+		String op=req.getParameter("op");   //操作命令符
+		  //展示车辆列表
 		if(op.equals("showlist")){
 			CarInfo carInfo=new CarInfo();
 			fenye(req, resp, carInfo);
@@ -52,42 +34,47 @@ public class MgCarInfoServlet extends HttpServlet{
 		req.setAttribute("allbrand", brandServiceImpl.getAllBrand());
 			req.getRequestDispatcher("admin/allproduct.jsp").forward(req, resp);
 		}
+		//展示在售的汽车
 		if(op.equals("showzs")){
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("����");
+			carInfo.setC_state("在售");
 			fenye(req, resp, carInfo);
 			CarBrandServiceImpl  brandServiceImpl=new CarBrandServiceImpl();
 			req.setAttribute("allbrand", brandServiceImpl.getAllBrand());
 			req.getRequestDispatcher("admin/zaishouproduct.jsp").forward(req, resp);
 		
 		}
+		//展示审核中的车
 		if(op.equals("showsh")){
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("�����");
+			carInfo.setC_state("审核中");
 			fenye(req, resp, carInfo);
 			CarBrandServiceImpl  brandServiceImpl=new CarBrandServiceImpl();
 			req.setAttribute("allbrand", brandServiceImpl.getAllBrand());
 			req.getRequestDispatcher("admin/shproduct.jsp").forward(req, resp);
 		
 		}
+		//展示下架的车
 		if(op.equals("showxj")){
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("�¼�");
+			carInfo.setC_state("下架");
 			fenye(req, resp, carInfo);
 			CarBrandServiceImpl  brandServiceImpl=new CarBrandServiceImpl();
 			req.setAttribute("allbrand", brandServiceImpl.getAllBrand());
 			req.getRequestDispatcher("admin/xjproduct.jsp").forward(req, resp);
 		
 		}
+		//展示未通过的车
 		if(op.equals("showwtg")){
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("δͨ��");
+			carInfo.setC_state("未通过");
 			fenye(req, resp, carInfo);
 			CarBrandServiceImpl  brandServiceImpl=new CarBrandServiceImpl();
 			req.setAttribute("allbrand", brandServiceImpl.getAllBrand());
 			req.getRequestDispatcher("admin/wtgproduct.jsp").forward(req, resp);
 		
 		}
+		//展示所有条件查询出的车
 		if(op.equals("showwhere")){
 			String pp=req.getParameter("cpp");
 			String cx=req.getParameter("ccx");
@@ -108,12 +95,13 @@ public class MgCarInfoServlet extends HttpServlet{
 			req.getRequestDispatcher("admin/allproduct.jsp").forward(req, resp);
 
 		}
+		//展示在售的条件查询出的车
 		if(op.equals("showzswhere")){
 			String pp=req.getParameter("cpp");
 			String cx=req.getParameter("ccx");
 		
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("����");
+			carInfo.setC_state("在售");
 			if(cx!=null&&!cx.equals("")){
 				carInfo.setC_series(cx);
 			}
@@ -129,12 +117,13 @@ public class MgCarInfoServlet extends HttpServlet{
 			req.getRequestDispatcher("admin/zaishouproduct.jsp").forward(req, resp);
 
 		}
+		//展示审核中的条件查询出的车
 		if(op.equals("showshwhere")){
 			String pp=req.getParameter("cpp");
 			String cx=req.getParameter("ccx");
 		
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("�����");
+			carInfo.setC_state("审核中");
 			if(cx!=null&&!cx.equals("")){
 				carInfo.setC_series(cx);
 			}
@@ -150,12 +139,13 @@ public class MgCarInfoServlet extends HttpServlet{
 			req.getRequestDispatcher("admin/shproduct.jsp").forward(req, resp);
 
 		}
+		//展示下架的条件查询出的车
 		if(op.equals("showxjwhere")){
 			String pp=req.getParameter("cpp");
 			String cx=req.getParameter("ccx");
 		
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("�¼�");
+			carInfo.setC_state("下架");
 			if(cx!=null&&!cx.equals("")){
 				carInfo.setC_series(cx);
 			}
@@ -171,12 +161,13 @@ public class MgCarInfoServlet extends HttpServlet{
 			req.getRequestDispatcher("admin/xjproduct.jsp").forward(req, resp);
 
 		}
+		//展示未通过的条件查询的车
 		if(op.equals("showwtgwhere")){
 			String pp=req.getParameter("cpp");
 			String cx=req.getParameter("ccx");
 		
 			CarInfo carInfo=new CarInfo();
-			carInfo.setC_state("δͨ��");
+			carInfo.setC_state("未通过");
 			if(cx!=null&&!cx.equals("")){
 				carInfo.setC_series(cx);
 			}
@@ -192,6 +183,7 @@ public class MgCarInfoServlet extends HttpServlet{
 			req.getRequestDispatcher("admin/wtgproduct.jsp").forward(req, resp);
 
 		}
+		//拒绝通过操作
 		if(op.equals("jjtg")){
 			String cid=req.getParameter("cid");
 			String uid=req.getParameter("uid");
@@ -201,18 +193,19 @@ public class MgCarInfoServlet extends HttpServlet{
 			perSonCar.setC_id(Long.parseLong(cid));
 			perSonCar.setU_id(Long.parseLong(uid));
 			perSonCar.setC_uid(Long.parseLong(uid));
-			perSonCar.setP_state("�����");
+			perSonCar.setP_state("审核中");
 			PersonCarServiceImpl personCarServiceImpl=new PersonCarServiceImpl();
 			
 			CarInfo carInfo=new CarInfo();
 			carInfo.setC_id(Long.parseLong(cid));
-			carInfo.setC_state("δͨ��");
+			carInfo.setC_state("未通过");
 			CarInfoServiceImpl carInfoServiceImpl=new CarInfoServiceImpl();
-			if(personCarServiceImpl.updatePerSoncar(perSonCar, "δͨ��")&&carInfoServiceImpl.updateCarInfo(carInfo)){
+			if(personCarServiceImpl.updatePerSoncar(perSonCar, "未通过")&&carInfoServiceImpl.updateCarInfo(carInfo)){
 				resp.getWriter().print(1);
 			}
 			
 		}
+		//允许通过操作
 		if(op.equals("yxtg")){
 			String cid=req.getParameter("cid");
 			String uid=req.getParameter("uid");
@@ -222,20 +215,21 @@ public class MgCarInfoServlet extends HttpServlet{
 			perSonCar.setC_id(Long.parseLong(cid));
 			perSonCar.setU_id(Long.parseLong(uid));
 			perSonCar.setC_uid(Long.parseLong(uid));
-			perSonCar.setP_state("�����");
+			perSonCar.setP_state("审核中");
 			PersonCarServiceImpl personCarServiceImpl=new PersonCarServiceImpl();
 		
 			String newprice=req.getParameter("newprice");
 		
 			CarInfo carInfo=new CarInfo();
 			carInfo.setC_id(Long.parseLong(cid));
-			carInfo.setC_state("����");
+			carInfo.setC_state("在售");
 			carInfo.setNewprice(Double.parseDouble(newprice));
 			CarInfoServiceImpl carInfoServiceImpl=new CarInfoServiceImpl();
-			if(personCarServiceImpl.updatePerSoncar(perSonCar, "����")&&carInfoServiceImpl.updateCarInfo(carInfo)){
+			if(personCarServiceImpl.updatePerSoncar(perSonCar, "出售")&&carInfoServiceImpl.updateCarInfo(carInfo)){
 				resp.getWriter().print(1);
 			}
 		}
+		//删除车操作
 		if(op.equals("dellcar")){
 			String cid=req.getParameter("cid");
 			HardwareConfigServiceImpl hardwareConfigServiceImpl=new HardwareConfigServiceImpl();
@@ -287,25 +281,29 @@ public class MgCarInfoServlet extends HttpServlet{
 			
 		}
 	}
+	/**
+	 * 分页展示车辆操作
+	 * 
+	 */
 	private void fenye(HttpServletRequest req, HttpServletResponse resp,CarInfo carInfo){
 		try {
 		int curPage=0;
 		if(req.getParameter("jumpPage")!=null){
 		 curPage =Integer.parseInt(req.getParameter("jumpPage"));
 	 }
-		//���þ������
+		//设置距离参数
 		String distance=null;
 		if(req.getParameter("distance")!=null){
 			distance = new String(req.getParameter("distance").getBytes("ISO8859-1"),"utf-8");
 			}
 	   Map<String, Integer> distanceMap=setDistance(distance);
-		//���ü۸����
+		//设置价格参数
 	   String price = null;
 		if(req.getParameter("price")!=null){
 			price = new String(req.getParameter("price").getBytes("ISO8859-1"),"utf-8");
 		}
       Map<String, Integer> priceMap=setPrice(price);
-      //���ó������
+      //设置车龄参数
       String age = null;
 		if(req.getParameter("age")!=null){
 			age = new String(req.getParameter("age").getBytes("ISO8859-1"),"utf-8");
@@ -325,9 +323,9 @@ public class MgCarInfoServlet extends HttpServlet{
 		 carInfo.setC_emissionstandard(new String(req.getParameter("emsi").getBytes("ISO8859-1"),"utf-8"));
 	 }
 	 int maxRowsCount=carInfoService.queryMsgCount(carInfo,priceMap.get("minPrice"),priceMap.get("maxPrice"),distanceMap.get("minDis"),distanceMap.get("maxDis"),ageMap.get("minAge"),ageMap.get("maxAge"));
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(7, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -370,6 +368,10 @@ public class MgCarInfoServlet extends HttpServlet{
 		}
 		
 	 }
+	 /**
+	  * 设置距离参数的方法
+	  * 
+	  */
 	 private Map<String, Integer> setDistance(String distance){
 		   Map<String, Integer> distanceMap=new HashMap<String, Integer>();
 	    DistanceUtil distanceUtil=null;
@@ -385,7 +387,7 @@ public class MgCarInfoServlet extends HttpServlet{
   	   return distanceMap;
      }
      /**
-      * ���ü۸�����ķ���
+      * 设置价格参数的方法
       * @param price
       * @return
       */
@@ -405,7 +407,7 @@ public class MgCarInfoServlet extends HttpServlet{
   		return priceMap;
      }
      /**
-      * ���ó�������ķ���
+      * 设置车龄参数的方法
       * @param age
       * @return
       */
