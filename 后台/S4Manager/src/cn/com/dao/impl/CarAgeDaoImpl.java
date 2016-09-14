@@ -156,7 +156,7 @@ int count=0;
 
 	/**
 	 * 获取车龄信息的方法
-	 * @return Map<Integer,CarAge>
+	 * @return CarAge
 	 */
 	@Override
 	public CarAge getCarAgeById(CarAge carAge) {
