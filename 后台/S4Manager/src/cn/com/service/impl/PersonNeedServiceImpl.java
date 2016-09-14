@@ -7,9 +7,18 @@ import cn.com.bean.*;
 import cn.com.service.*;
 import cn.com.dao.*;
 import cn.com.dao.impl.*;
-
+/**
+ * 个人需求信息服务实现类
+ *@author 
+ */
 public class PersonNeedServiceImpl implements IPersonNeedService,IPageDao{
+	//个人需求操作实现类的引用
 private PersonNeedDaoImpl personNeedDao=new PersonNeedDaoImpl();
+  /**
+   * 
+   * 添加个人需求信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean addPersonNeed(PersonNeed personNeed) {
 		// TODO Auto-generated method stub
@@ -19,6 +28,11 @@ private PersonNeedDaoImpl personNeedDao=new PersonNeedDaoImpl();
 		}
 		return flag;
 	}
+  /**
+   * 
+   * 删除个人需求信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean deletePersonNeed(PersonNeed personNeed) {
 		// TODO Auto-generated method stub
@@ -28,6 +42,11 @@ private PersonNeedDaoImpl personNeedDao=new PersonNeedDaoImpl();
 		}
 		return flag;
 	}
+  /**
+   * 
+   * 获取个人需求信息的服务
+   *@return PersonNeed
+   */
 	@Override
 	public PersonNeed getPerSonNeed(PersonNeed personNeed) {
 		// TODO Auto-generated method stub
@@ -57,6 +76,11 @@ private PersonNeedDaoImpl personNeedDao=new PersonNeedDaoImpl();
 		// TODO Auto-generated method stub
 		return personNeedDao.showPersonCarList(curPage, rowsPrePage, object);
 	}
+  /**
+   * 
+   * 修改个人需求信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean updatePersonNeed(PersonNeed personNeed) {
 		// TODO Auto-generated method stub
@@ -66,6 +90,11 @@ private PersonNeedDaoImpl personNeedDao=new PersonNeedDaoImpl();
 		}
 		return flag;
 	}
+/**
+ * 
+ * 检查是否还有与某用户编号关联的个人需求的服务
+ * @return boolean
+ */
 	@Override
 	public boolean chekUidPerson(PersonNeed personneed) {
 		// TODO Auto-generated method stub
