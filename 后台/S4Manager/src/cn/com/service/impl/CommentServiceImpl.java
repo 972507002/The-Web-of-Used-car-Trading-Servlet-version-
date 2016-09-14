@@ -7,9 +7,18 @@ import cn.com.bean.Comment;
 import cn.com.dao.IPageDao;
 import cn.com.dao.impl.CommentDaoImpl;
 import cn.com.service.ICommentService;
-
+/**
+ * 评论服务实现类
+ * @author lej
+ */
 public class CommentServiceImpl implements ICommentService,IPageDao {
+	//评论操作实现类的引用
   private CommentDaoImpl commentDao=new CommentDaoImpl();
+          /**
+           * 添加评论的服务
+           * @parma comment
+           * @return boolean
+           */
 	@Override
 	public boolean addComment(Comment comment) {
 		// TODO Auto-generated method stub
@@ -19,7 +28,11 @@ public class CommentServiceImpl implements ICommentService,IPageDao {
 		}
 		return flag;
 	}
-
+          /**
+           * 删除评论的服务
+           * @parma comment
+           * @return boolean
+           */
 	@Override
 	public boolean deleteComment(Comment comment) {
 		// TODO Auto-generated method stub
@@ -29,13 +42,23 @@ public class CommentServiceImpl implements ICommentService,IPageDao {
 		}
 		return flag;
 	}
-
+          /**
+           * 获取评论的服务
+           * @parma comment
+           * @return Comment
+           */
 	@Override
 	public Comment getComment(Comment comment) {
 		// TODO Auto-generated method stub
 		return commentDao.getComment(comment);
 	}
-
+          /**
+           * 获取两条最新的评论的服务
+           * @parma comment
+           * @parma min 最小行
+           * @parma max 最大行
+           * @return Map<Long,Comment>
+           */
 	@Override
 	public Map<Long, Comment> getTheTowComment(Comment comment, int min, int max) {
 		// TODO Auto-generated method stub
@@ -56,20 +79,32 @@ public class CommentServiceImpl implements ICommentService,IPageDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+    /**
+     * 获取评价信息的记录总条数的服务
+     * @return int
+     */	
 	@Override
 	public int queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
 		return commentDao.queryPersonCarCount(object);
 	}
-
+/**
+ * 分页获取评论信息的服务
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
 		// TODO Auto-generated method stub
 		return commentDao.showPersonCarList(curPage, rowsPrePage, object);
 	}
-
+          /**
+           * 修改评论的服务
+           * @parma comment
+           * @return boolean
+           */
 	@Override
 	public boolean updateComment(Comment comment) {
 		// TODO Auto-generated method stub
