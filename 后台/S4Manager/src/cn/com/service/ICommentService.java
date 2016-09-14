@@ -11,13 +11,13 @@ public interface ICommentService {
 	 /**
            * 添加评论的服务
            * @parma comment
-           * @return int
+           * @return boolean
            */
 	public boolean addComment(Comment comment) ;
 	 /**
            * 删除评论的服务
            * @parma comment
-           * @return int
+           * @return boolean
            */
 	public boolean deleteComment(Comment comment);
 	  /**
@@ -37,7 +37,7 @@ public interface ICommentService {
 	  /**
            * 修改评论的服务
            * @parma comment
-           * @return int
+           * @return boolean
            */
 	public boolean updateComment(Comment comment);
 }
