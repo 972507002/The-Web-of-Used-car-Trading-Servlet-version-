@@ -48,7 +48,7 @@ public interface ISellInfoService {
  *@return boolean  
  */
 	 public boolean deletecidsellinfouser(SellInfo s);
-	 /**
+/**
  * 
  * 检查是否还有与某车主编号关联的销售信息的服务
  * @return boolean
