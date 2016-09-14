@@ -14,19 +14,19 @@ public interface IDistanceDao {
    public Map<Integer, Distance> getDistanceByCount();
           /**
            * 添加行驶距离的方法
-           * @parma comment
+           * @parma distance
            * @return int
            */
    public int addDistance(Distance distance);
              /**
            * 删除行驶距离的方法
-           * @parma comment
+           * @parma distance
            * @return int
            */
    public int deleteDistance(Distance distance);
              /**
            * 修改行驶距离的方法
-           * @parma comment
+           * @parma distance
            * @return int
            */
    public int updateDistance(Distance distance);
