@@ -13,7 +13,7 @@ import cn.com.service.*;
 public class CarInfoServiceImpl implements ICarInfoService,IPageDao  {
 	//汽车概要信息操作实现类的引用
    private CarInfoDaoImpl carInfoDao=new CarInfoDaoImpl();
-   /**
+/**
  * 按热度获取汽车概要信息的服务
  * @parma carInfo
  * @return   Map<Long, CarInfo>
@@ -23,7 +23,7 @@ public class CarInfoServiceImpl implements ICarInfoService,IPageDao  {
 		// TODO Auto-generated method stub
 		return carInfoDao.getCarInfoByCountDesc(carInfo);
 	}
-	/**
+/**
  * 按热度和品牌获取汽车概要信息的服务
  * @parma carInfo
  * @return   Map<Long, CarInfo>
@@ -33,7 +33,7 @@ public class CarInfoServiceImpl implements ICarInfoService,IPageDao  {
 		// TODO Auto-generated method stub
 		return carInfoDao.getCarInfoByBrandCountDesc(carInfo);
 	}
-	/**
+/**
  * 按上架时间获取汽车概要信息的服务
  * @parma carInfo
  * @return   Map<Long, CarInfo>
@@ -43,7 +43,7 @@ public class CarInfoServiceImpl implements ICarInfoService,IPageDao  {
 		// TODO Auto-generated method stub
 		return carInfoDao.getCarInfoBySjTime(carInfo);
 	}
-	/**
+/**
  * 获取四辆最新上架的汽车概要信息的服务
  * @parma carInfo
  * @return   Map<Long, CarInfo>
@@ -53,7 +53,7 @@ public class CarInfoServiceImpl implements ICarInfoService,IPageDao  {
 		// TODO Auto-generated method stub
 		return carInfoDao.getFourthCarInfoBySjTime(carInfo);
 	}
-	/**
+/**
  * 按热度和车型获取汽车概要信息的服务
  * @parma carInfo
  * @return   Map<Long, CarInfo>
@@ -63,7 +63,7 @@ public class CarInfoServiceImpl implements ICarInfoService,IPageDao  {
 		// TODO Auto-generated method stub
 		return carInfoDao.getCarInfoByTypeCountDesc(carInfo);
 	}
-	/**
+/**
  * 按品牌获取汽车概要信息的方法
  * @parma carInfo
  * @return   Map<Long, CarInfo>
@@ -73,7 +73,7 @@ public class CarInfoServiceImpl implements ICarInfoService,IPageDao  {
 		// TODO Auto-generated method stub
 		return carInfoDao.getCarInfoByBrand(carInfo);
 	}
-	/**
+/**
  * 按车型获取汽车概要信息的服务
  * @parma carInfo
  * @return   Map<Long, CarInfo>
