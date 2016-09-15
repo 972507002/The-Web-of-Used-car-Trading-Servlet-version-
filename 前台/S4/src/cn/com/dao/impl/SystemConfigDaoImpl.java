@@ -12,7 +12,7 @@ import cn.com.util.DbUtil;
  * 
  * 汽车系统配置信息操作实现类
  * @author lej
- * /
+ */
 public class SystemConfigDaoImpl implements ISystemConfigDao{
         /**
 	 * 获取所有系统信息
