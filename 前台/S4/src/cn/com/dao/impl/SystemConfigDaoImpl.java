@@ -56,7 +56,7 @@ public class SystemConfigDaoImpl implements ISystemConfigDao{
 		return systemConfigMap;
 	}
 /**
- * 通过Id获取系统销售信息
+ * 通过Id获取系统信息
  * @param systemConfig
  * @return carInfo
  */
