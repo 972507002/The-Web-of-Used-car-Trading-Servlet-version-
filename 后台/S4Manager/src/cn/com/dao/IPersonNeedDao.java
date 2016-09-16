@@ -39,6 +39,6 @@ public boolean chekUidPerson(PersonNeed personneed)
 /**
  * 根据用户编号删除个人需求信息的方法
  *@return int  
- */;
+ */
 public int deleteUidPerson(PersonNeed personneed);
 }
