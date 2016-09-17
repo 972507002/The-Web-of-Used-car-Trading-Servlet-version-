@@ -266,7 +266,7 @@ if(personNeed.getP_state()!=null){
 /**
  * 根据用户编号删除个人需求信息的方法
  *@return int  
- */;
+ */
 	@Override
 	public int deleteUidPerson(PersonNeed personneed) {
 		// TODO Auto-generated method stub
