@@ -189,7 +189,7 @@ public class ProcedureInfoDaoImpl implements IProcedureInfoDao{
 	}
 /**
  * 
- * 检查是否还有与某主编号关联的手续信息
+ * 检查是否还有与某车编号关联的手续信息
  * @return boolean
  */
 	@Override
