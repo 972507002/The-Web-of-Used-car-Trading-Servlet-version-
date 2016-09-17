@@ -73,10 +73,7 @@ public boolean updateType(CarType carType) {
 	return flag;
 }
 
-/**
- * 获取车型的服务
- * @return CarType
- */
+
 @Override
 public int queryMsgCount(Object object, int minPrice, int maxPrice, int minDis,
 		int maxDis, int minAge, int maxAge) {
